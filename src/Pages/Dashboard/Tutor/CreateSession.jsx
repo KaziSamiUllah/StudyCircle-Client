@@ -1,266 +1,191 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
+import useUser from "../../../Hooks/useUser";
 
 const CreateSession = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const{savedUser} = useUser()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const sessionTitle = formData.get("sessionTitle");
+    const tutorName = formData.get("tutorName");
+    const tutorEmail = formData.get("tutorEmail");
+    const sessionDescription = formData.get("sessionDescription");
+    const regStart = formData.get("regStart");
+    const regEnd = formData.get("regEnd");
+    const classStart = formData.get("classStart");
+    const classEnd = formData.get("classEnd");
+    const status = formData.get("status");
+    const lessons = formData.get("lessons");
+    const fee = formData.get("fee");
+
+    const data = {sessionTitle, tutorName, tutorEmail, sessionDescription, regStart, regEnd, classStart, classEnd, status, lessons, fee}
+console.log(data);
+    axios.post('http://localhost:5000/sessions',data)
+    .then(res=>{console.log(res)
+      if(res.statusText == "OK"){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "New session has been posted for approval",
+          showConfirmButton: false,
+          timer: 1500
+        });}
+
+    })
+    .catch(error=>console.log(error))
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-10/12 mx-auto mt-8 ">
-        <h1 className="text-center text-3xl font-semibold my-5">Create a new study session</h1>
+    <form onSubmit={handleSubmit} className="w-10/12 mx-auto mt-8 ">
+      <h1 className="text-center text-3xl font-semibold my-5">
+        Create a new study session
+      </h1>
       <div className="grid grid-cols-2 gap-5">
         <div>
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="sessionTitle"
-            >
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Session Title:
             </label>
             <input
               type="text"
-              {...register("sessionTitle", { required: true })}
+              name="sessionTitle"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.sessionTitle && (
-              <span className="text-red-500 text-xs">
-                Session Title is required
-              </span>
-            )}
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorName"
-            >
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Tutor Name:
             </label>
             <input
               type="text"
-              {...register("tutorName", { required: true })}
+              name="tutorName"
+              defaultValue={savedUser?.name}
+              readOnly
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorName && (
-              <span className="text-red-500 text-xs">
-                Tutor Name is required
-              </span>
-            )}
           </div>
-
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Tutor Email:
             </label>
             <input
-              type="email"
-              {...register("tutorEmail", { required: true })}
+              type="text"
+              name="tutorEmail"
+              defaultValue={savedUser?.email}
+              readOnly
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Tutor Email is required
-              </span>
-            )}
           </div>
-
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="sessionDescription"
-            >
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Session Description:
             </label>
             <textarea
-              {...register("sessionDescription", { required: true })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            ></textarea>
-            {errors.sessionDescription && (
-              <span className="text-red-500 text-xs">
-                Session Description is required
-              </span>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
-              Class Duration:
-            </label>
-            <input
               type="text"
-              {...register("classDuration", { required: true })}
+              name="sessionDescription"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Class duration is required
-              </span>
-            )}
           </div>
-
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
-              Number of lessons:
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Registration Start:
             </label>
             <input
-              type="number"
-              {...register("lessons")}
+              type="date"
+              name="regStart"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Class duration is required
-              </span>
-            )}
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Registration End:
+            </label>
+            <input
+              type="date"
+              name="regEnd"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
         </div>
         <div>
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
-              Registration start date:
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Class Start Date:
             </label>
             <input
               type="date"
-              {...register("regStart", { required: true })}
+              name="classStart"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Registration start date is required
-              </span>
-            )}
           </div>
-
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
-              Registration end date:
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Class End Date:
             </label>
             <input
               type="date"
-              {...register("regEnd", { required: true })}
+              name="classEnd"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Registration end date is required
-              </span>
-            )}
           </div>
-
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
-              Class stars from:
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Session Duration (in hours):
             </label>
             <input
-              type="date"
-              {...register("classStart", { required: true })}
+              type="number"
+              name="classDuration"
+              min="0"
+              step="0.5"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Class stars date is required
-              </span>
-            )}
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
-              Class ends on:
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Number of lessons:
             </label>
             <input
-              type="date"
-              {...register("classEnd", { required: true })}
+              type="number"
+              name="lessons"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Class end date is required
-              </span>
-            )}
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Registration Fee:
             </label>
             <input
               type="number"
+              name="fee"
+              min="0"
+              readOnly
               value={0}
-              {...register("fee", { disabled: true })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight bg-gray-200"
             />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Class duration is required
-              </span>
-            )}
           </div>
-
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="tutorEmail"
-            >
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Status:
             </label>
             <input
-              type="text"
+              name="status"
               value="Pending"
-              {...register("status", { disabled: true })}
+              readOnly
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            {errors.tutorEmail && (
-              <span className="text-red-500 text-xs">
-                Class duration is required
-              </span>
-            )}
+            >
+              {/* Add additional status options here */}
+            </input>
           </div>
         </div>
-      </div>
-
-      {/* Add other fields similarly */}
-
-      <div className="flex items-center justify-between">
-        <button
-          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary w-full font-bold"
-          type="submit"
-        >
-          Submit
-        </button>
+        <input type="submit" className="btn" />
       </div>
     </form>
   );
 };
-
 export default CreateSession;
