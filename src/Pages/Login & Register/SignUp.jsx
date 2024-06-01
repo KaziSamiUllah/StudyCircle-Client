@@ -10,8 +10,15 @@ const SignUp = () => {
   const onSubmit = (data) => {
     SignUp(data.email, data.password).then((res) => {
       console.log(res.user.uid)
+      const userData = {name:data.name, email: data.email,role: data.role}
     if(res.user.uid){
-        axios.post()
+        axios.post('http://localhost:5000/users', userData)
+        .then(response => {
+          console.log('Response:', response.data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
     });
   };
@@ -76,7 +83,7 @@ const SignUp = () => {
           >
             <option value="student">Student</option>
             <option value="tutor">Tutor</option>
-            <option value="admin">Admin</option>
+            {/* <option value="admin">Admin</option> */}
           </select>
         </div>
        <div className="flex justify-center">
