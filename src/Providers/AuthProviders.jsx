@@ -27,7 +27,7 @@ import {
     };
   
     // Sign In/Log in///
-    const SingIn = (email, password) => {
+    const SignIn = (email, password) => {
       setLoading(true);
       return signInWithEmailAndPassword(auth, email, password);
     };
@@ -105,7 +105,7 @@ import {
   
     const authInfo = {
       SignUp,
-      SingIn,
+      SignIn,
       SignOut,
       signInWithGoogle,
       UpdateUserData,
