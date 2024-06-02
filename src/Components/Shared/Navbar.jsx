@@ -4,7 +4,7 @@ import useUser from "../../Hooks/useUser";
 
 const Navbar = () => {
   const {user, SignOut, savedUser} = useUser();
-  console.log(savedUser);
+  // console.log(savedUser);
   const handleSingOut = () => {
     SignOut();
   };

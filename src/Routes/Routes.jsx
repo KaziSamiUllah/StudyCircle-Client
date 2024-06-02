@@ -10,6 +10,7 @@ import TutorMaterials from "../Pages/Dashboard/Tutor/TutorMaterials";
 import TutorSessions from "../Pages/Dashboard/Tutor/TutorSessions";
 import UploadMaterials from "../Pages/Dashboard/Tutor/UploadMaterials";
 import AllNotes from "../Pages/Dashboard/Tutor/AllNotes";
+import SessionDetails from "../Pages/Home/SessionDetails/SessionDetails";
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
         path: '/signUp',
         element: <SignUp></SignUp>
       },
+      {
+        path: '/sessionDetails/:id',
+        element: <SessionDetails></SessionDetails>
+      },
+
     ]
   },
   {
@@ -48,7 +54,7 @@ const router = createBrowserRouter([
         element: <TutorMaterials></TutorMaterials>
       },
       {
-        path: "uploadMaterials",
+        path: "uploadMaterials/:id",
         element: <UploadMaterials></UploadMaterials>
       },
       {

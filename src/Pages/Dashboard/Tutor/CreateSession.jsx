@@ -20,8 +20,11 @@ const CreateSession = () => {
     const status = formData.get("status");
     const lessons = formData.get("lessons");
     const fee = formData.get("fee");
+    const duration = formData.get('duration')
+    const rating = 0;
+    const materials = {}
 
-    const data = {sessionTitle, tutorName, tutorEmail, sessionDescription, regStart, regEnd, classStart, classEnd, status, lessons, fee}
+    const data = {sessionTitle, tutorName, tutorEmail, sessionDescription, regStart, regEnd, classStart, classEnd, status, lessons, fee, duration, rating, materials}
 console.log(data);
     axios.post('http://localhost:5000/sessions',data)
     .then(res=>{console.log(res)
@@ -138,7 +141,7 @@ console.log(data);
             </label>
             <input
               type="number"
-              name="classDuration"
+              name="duration"
               min="0"
               step="0.5"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -183,8 +186,9 @@ console.log(data);
             </input>
           </div>
         </div>
-        <input type="submit" className="btn" />
+        
       </div>
+      <input type="submit" className="bg-secondary hover:bg-neutral hover:text-white btn w-full" />
     </form>
   );
 };

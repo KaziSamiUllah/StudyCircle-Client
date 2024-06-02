@@ -12,7 +12,7 @@ const StudySessions = () => {
       return res;
     },
   });
-  console.log(isLoading, data.data);
+  // console.log(isLoading, data.data);
 
   return (
     <div>

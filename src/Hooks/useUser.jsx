@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../Providers/AuthProviders';
 import useAxiosSecure from './useAxiosSecure';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
 const useUser = () => {
