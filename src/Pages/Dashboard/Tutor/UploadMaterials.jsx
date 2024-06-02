@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
-import useSessionData from "../../../Hooks/useSessionData";
-import { useParams } from "react-router-dom";
-import useAxiosSecure, { axiosSecure } from "../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useFetchSessionbyId from "../../../Hooks/useFetchSessionbyId";
 import axios from "axios";
 
@@ -11,12 +9,12 @@ const UploadMaterials = () => {
   const id = useParams();
   const ID = id.id;
   const axiosSecure = useAxiosSecure();
-
+  const navigate = useNavigate();
 
   const { sessionData } = useFetchSessionbyId(ID);
   const [image, setImage] = useState();
   const [imageURL, setImageURL] = useState();
-  const [materialOBJ, setMaterial] = useState({});
+//   const [materialOBJ, setMaterial] = useState();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -28,63 +26,66 @@ const UploadMaterials = () => {
     const formData = new FormData(e.target);
     const materialTitle = formData.get("materialTitle");
     const link = formData.get("link");
-    setMaterial({ materialTitle, link, imageURL });
 
     if (image) {
-        const apiKey = "0797d4ee38bdb9a92d846524045a5347";
-        const uploadData = new FormData();
-        uploadData.append("key", apiKey);
-        uploadData.append("image", image);
-        
-        axios.post("https://api.imgbb.com/1/upload", uploadData)
-          .then((response) => {
-            const data = response.data;
-            if (data.success) {
-              setImageURL(data.data.url);
-              setMaterial({ materialTitle, link, URL: data.data.url });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-                footer: `<a href="#">${data.error.message}</a>`,
-              });
-              console.error("Image upload failed:", data.error.message);
-            }
-          })
-          .catch((error) => {
+      const apiKey = "0797d4ee38bdb9a92d846524045a5347";
+      const uploadData = new FormData();
+      uploadData.append("key", apiKey);
+      uploadData.append("image", image);
+
+      axios
+        .post("https://api.imgbb.com/1/upload", uploadData)
+        .then((response) => {
+          const data = response.data;
+          if (data.success) {
+            setImageURL(data.data.url);
+              uploadMaterial({ materialTitle, link, URL: data.data.url });
+            
+          } else {
             Swal.fire({
               icon: "error",
               title: "Oops...",
               text: "Something went wrong!",
-              footer: `<a href="#">${error.message}</a>`,
+              footer: `<a href="#">${data.error.message}</a>`,
             });
-            console.error("Image upload failed:", error.message);
+            console.error("Image upload failed:", data.error.message);
+          }
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: `<a href="#">${error.message}</a>`,
           });
+          console.error("Image upload failed:", error.message);
+        });
     } else {
-      setMaterial({ materialTitle, link });
+    
+        uploadMaterial({ materialTitle, link, URL: "" });
+      
     }
-    console.log(materialOBJ);
-    uploadMaterial()
   };
 
-  const uploadMaterial = async () =>{
-    const res = await  axiosSecure.put(`/updateSessions/${ID}`, materialOBJ)
-    .then(res=>{console.log(res)
-        // Swal.fire({
-        //     position: "center",
-        //     icon: "success",
-        //     title: "Your materials have been saved",
-        //     showConfirmButton: false,
-        //     timer: 1500
-        //   });
-
-    })
-    .catch(error=>console.log(error))
-    return res
-  }
-
-
+  const uploadMaterial = async (materialOBJ) => {
+    const res = await axiosSecure
+      .patch(`/updateSessions/${ID}`, materialOBJ)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your materials have been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          //   navigate("dashboard/tutorMaterials")
+        }
+      })
+      .catch((error) => console.log(error));
+    return res;
+  };
 
   return (
     <div>
