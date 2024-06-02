@@ -6,6 +6,7 @@ import useFetchSessionbyId from "../../../Hooks/useFetchSessionbyId";
 import axios from "axios";
 
 const UploadMaterials = () => {
+    const [loading, setLoading] = useState(false)
   const id = useParams();
   const ID = id.id;
   const axiosSecure = useAxiosSecure();
@@ -26,7 +27,7 @@ const UploadMaterials = () => {
     const formData = new FormData(e.target);
     const materialTitle = formData.get("materialTitle");
     const link = formData.get("link");
-
+    setLoading(true)
     if (image) {
       const apiKey = "0797d4ee38bdb9a92d846524045a5347";
       const uploadData = new FormData();
@@ -61,7 +62,6 @@ const UploadMaterials = () => {
           console.error("Image upload failed:", error.message);
         });
     } else {
-    
         uploadMaterial({ materialTitle, link, URL: "" });
       
     }
@@ -80,6 +80,7 @@ const UploadMaterials = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+        setLoading(false)
           //   navigate("dashboard/tutorMaterials")
         }
       })
@@ -152,6 +153,7 @@ const UploadMaterials = () => {
 
           <input
             type="submit"
+            value={`${loading? "Uploading...": "Upload"}`}
             className="bg-secondary hover:bg-neutral hover:text-white btn w-full"
           />
         </form>

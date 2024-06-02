@@ -22,10 +22,10 @@ const DashboardNav = () => {
           label="My Materials"
           address="/dashboard/tutorMaterials"
         />
-        <ActiveNavlink
+        {/* <ActiveNavlink
           label="Upload Materials"
           address="/dashboard/uploadMaterials"
-        />
+        /> */}
         <ActiveNavlink label="All Notes" address="/dashboard/allNotes" />
       </div>
       <div className="bg-red-100 absolute bottom-0 w-full ">
