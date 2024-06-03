@@ -11,6 +11,7 @@ import TutorSessions from "../Pages/Dashboard/Tutor/TutorSessions";
 import UploadMaterials from "../Pages/Dashboard/Tutor/UploadMaterials";
 import AllNotes from "../Pages/Dashboard/Tutor/AllNotes";
 import SessionDetails from "../Pages/Home/SessionDetails/SessionDetails";
+import EditMaterials from "../Pages/Dashboard/Tutor/EditMaterials";
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "uploadMaterials/:id",
         element: <UploadMaterials></UploadMaterials>
+      },
+      {
+        path: "updateMaterials/:id",
+        element: <EditMaterials></EditMaterials>
       },
       {
         path: "allNotes",
