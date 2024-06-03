@@ -1,51 +1,40 @@
-import axios from "axios";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+
 import useFetchSessionbyId from "../../../Hooks/useFetchSessionbyId";
+import ViewBookDetails from "../../../Components/Shared/ViewBookDetails";
+import useUser from "../../../Hooks/useUser";
+import useMoment from "../../../Hooks/useMoment";
+import useAxiosSecure, { axiosSecure } from "../../../Hooks/useAxiosSecure";
+import { useEffect } from "react";
+
 
 const SessionDetails = () => {
+const {savedUser} = useUser()
+const currentDate = useMoment()
+const axiosSecure = useAxiosSecure()
+
+
   const id = useParams();
   const ID = id.id;
+  const { sessionData } = useFetchSessionbyId(ID);
 
-  console.log(ID);
+  const handleBooking = async ()=>{
 
-  const {sessionData} = useFetchSessionbyId(ID)
-  console.log(sessionData);
+     const res = await axiosSecure.post('/bookings' )
+      console.log(res);
+  }
+
+
+
+
 
   return (
-    <div>
-      <div className="my-20 max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold mb-2">{sessionData?.sessionTitle}</h1>
-        <p className="text-lg font-medium mb-1">
-          Tutor: {sessionData?.tutorName}
-        </p>
-        <p className="text-lg font-medium mb-1">Average Rating: 5</p>
-        <p className="text-sm text-gray-600 mb-4">
-          {sessionData?.sessionDescription}
-        </p>
-        <div className="text-sm text-gray-800">
-          <p>
-            <strong>Registration Start Date:</strong> {sessionData?.regStart}
-          </p>
-          <p>
-            <strong>Registration End Date:</strong> {sessionData?.regEnd}
-          </p>
-          <p>
-            <strong>Class Start Time:</strong> {sessionData?.classStart}
-          </p>
-          <p>
-            <strong>Class End Time:</strong> {sessionData?.classEnd}
-          </p>
-          <p>
-            <strong>Session Duration:</strong> {sessionData?.duration}
-          </p>
-          <p>
-            <strong>Total lessons:</strong> {sessionData?.lessons}
-          </p>
-        </div>
+    <div className="my-10 max-w-5xl mx-auto p-10 bg-white shadow-md rounded-lg">
+      <ViewBookDetails sessionData={sessionData}></ViewBookDetails>
+      <div className="flex mt-5 justify-end">
+        <button onClick={()=>handleBooking(ID)} disabled={(savedUser?.role !== "student") || !(sessionData?.regEnd > currentDate > sessionData?.regStart)} className="btn btn-neutral text-white font-bold hover:bg-secondary hover:text-black text-lg">
+          {(sessionData?.regEnd > currentDate > sessionData?.regStart)? "Book Now" : "Registration Closed" }</button>
       </div>
     </div>
   );

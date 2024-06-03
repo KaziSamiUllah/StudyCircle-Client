@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import useUser from "../../Hooks/useUser";
 
 const Navbar = () => {
-  const {user, SignOut, savedUser} = useUser();
+  const { user, SignOut, savedUser } = useUser();
   // console.log(savedUser);
   const handleSingOut = () => {
     SignOut();
@@ -43,8 +43,21 @@ const Navbar = () => {
                   <li>{user.email}</li>
                   <li>Role: {savedUser?.role} </li>
                   <li className="bg-accent font-bold rounded-lg ">
-                    <Link to="dashboard/tutorSessions">Dashboard</Link>
+                    {savedUser?.role === "tutor" ? (
+                      <Link to="dashboard/tutorSessions">Dashboard</Link>
+                    ) : (
+                      savedUser?.role === "student" ? (
+                        <Link to="/dashboard/bookedSessions">Dashboard</Link>
+                      ) : (
+                        "/"
+                      )
+
+
+
+                    )}
                   </li>
+
+    
                   <li>
                     <button className="btn" onClick={handleSingOut}>
                       Sign Out

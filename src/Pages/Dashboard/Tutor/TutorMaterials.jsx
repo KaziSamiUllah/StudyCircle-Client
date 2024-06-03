@@ -8,13 +8,14 @@ import { FcViewDetails } from "react-icons/fc";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 
 const TutorMaterials = () => {
   const{user} = useUser()
   const axiosSecure = useAxiosSecure()
  
-  const { isLoading, refetch, data = [] } = useQuery({
+  const {refetch, isLoading,data: tutorMaterial = [] } = useQuery({
 
       queryKey: ["tutorMaterials"],
       queryFn: async () => {
@@ -23,6 +24,41 @@ const TutorMaterials = () => {
      
       },
     });
+
+
+    const handleDelete = async (id) => {
+      console.log(id);
+  
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteSession(id);
+  
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your material has been deleted.",
+            icon: "success",
+          });
+        }
+      });
+    };
+  
+    const deleteSession = async (id) => {
+      const res = await axiosSecure.delete(`/materials/${id}`);
+      console.log(res.data);
+      if (res.data.acknowledged === true) {
+        refetch();
+        console.log(res.data.acknowledged);
+        
+      }
+    };
 
 
 
@@ -48,7 +84,7 @@ const TutorMaterials = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.map((material, index) => (
+              {tutorMaterial?.data?.map((material, index) => (
                 <tr key={index}>
                   <td className="py-2 px-4 border-b text-center">
                     {material.materialTitle}
@@ -74,7 +110,7 @@ const TutorMaterials = () => {
                         </Link>
                       </button>
                       <button
-                        // onClick={() => handleDelete(session._id)}
+                        onClick={() => handleDelete(material._id)}
                         className="btn btn-ghost btn-sm  text-red-500 m-1 w-fit mx-auto text-2xl"
                       >
                         <MdDelete />

@@ -1,13 +1,19 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useOngoing from "../../../Hooks/useOngoing";
+import useMoment from "../../../Hooks/useMoment";
 
 const SessionCard = ({ session }) => {
   // console.log(session);
-  const { sessionTitle, tutorName, sessionDescription, lessons, regEnd, _id } =
+  const { sessionTitle, tutorName, sessionDescription, lessons,regStart, regEnd, _id } =
     session;
+  const currentDate = useMoment()
+ 
+
+
   return (
     <div>
-      <div className="card w-96  shadow-xl m-5 p-5 bg-white">
+      <div className="card w-96  shadow-xl m-5 p-10 bg-white">
         <div>
           <h1 className="text-xl font-semibold">{sessionTitle}</h1>
           <div className="my-2 flex items-center gap-5">
@@ -24,13 +30,15 @@ const SessionCard = ({ session }) => {
           <hr className="text-slate-500 border-slate-500 w-full" />
 
           <div className="card-actions justify-between items-center ">
-            <button className="btn btn-ghost">Ongoing</button>
-            <button className="btn btn-sm rounded-full">
-              <Link to={`/sessionDetails/${_id}`} className="flex flex-row items-center gap-1">
-                Read more{" "}
-                  <FaArrowRight />
+            <h1 className="font-bold">{ (regEnd > currentDate > regStart)? "Ongoing" : "Closed"}</h1>
+           
+              <Link
+                to={`/sessionDetails/${_id}`}
+                className="text-base btn btn-sm btn-ghost rounded-full flex flex-row items-center gap-1"
+              >
+                Read more <FaArrowRight className="text-secondary"/>
               </Link>
-            </button>
+       
           </div>
         </div>
       </div>
