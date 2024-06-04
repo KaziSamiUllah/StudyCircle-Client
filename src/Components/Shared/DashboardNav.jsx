@@ -11,7 +11,7 @@ const DashboardNav = () => {
       navigate("/");
     });
   };
-  console.log(savedUser?.role);
+  console.log(savedUser?.role, savedUser?.email);
 
   return (
     <div className=" relative h-screen">

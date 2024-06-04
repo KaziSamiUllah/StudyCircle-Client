@@ -16,6 +16,7 @@ import BookedSessions from "../Pages/Dashboard/Student/BookedSessions";
 import CreateNote from "../Pages/Dashboard/Student/CreateNote";
 import MyNotes from "../Pages/Dashboard/Student/MyNotes";
 import MyStudyMaterials from "../Pages/Dashboard/Student/MyStudyMaterials";
+import BookedSessionDetails from "../Pages/Dashboard/Student/BookedSessionDetails";
 
 
 const router = createBrowserRouter([
@@ -46,6 +47,8 @@ const router = createBrowserRouter([
     path: 'dashboard',
     element: <Dashboard></Dashboard>,
     children: [
+
+      //////////////Tutor routes////////////////
       {
         path: "createSession",
         element: <CreateSession></CreateSession>
@@ -70,6 +73,7 @@ const router = createBrowserRouter([
         path: "allNotes",
         element: <AllNotes></AllNotes>
       },
+      //////Student Routes//////////////
       {
         path: "bookedSessions",
         element: <BookedSessions></BookedSessions>
@@ -89,6 +93,14 @@ const router = createBrowserRouter([
       {
         path: "studentMaterials",
         element: <MyStudyMaterials></MyStudyMaterials>
+      },
+      {
+        path: "bookedSessionDetails/:id",
+        element: <BookedSessionDetails></BookedSessionDetails>
+      },
+      {
+        path: "createNote",
+        element: <CreateNote></CreateNote>
       },
     ]
   }
