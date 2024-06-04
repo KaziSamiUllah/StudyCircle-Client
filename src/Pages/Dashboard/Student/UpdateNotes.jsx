@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure, { axiosSecure } from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -6,10 +6,11 @@ import Swal from "sweetalert2";
 const UpdateNotes = () => {
     const axiosSecure = useAxiosSecure()
   const ID = useParams().id;
+  const navigate = useNavigate()
   const {
     isPending,
-    refetch,
     error,
+    refetch,
     data: notes = {},
   } = useQuery({
     queryKey: ["repoData"],
@@ -36,7 +37,7 @@ const UpdateNotes = () => {
             showConfirmButton: false,
             timer: 1500
           });
-         refetch
+         navigate('/dashboard/myNotes')
     }
   };
 

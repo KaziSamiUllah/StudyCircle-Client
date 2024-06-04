@@ -1,10 +1,12 @@
 import useUser from "../../../Hooks/useUser";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CreateNote =  () => {
   const { user } = useUser();
   const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -23,7 +25,7 @@ const CreateNote =  () => {
                 showConfirmButton: false,
                 timer: 1500
               });
-              e.target.reset();
+              navigate('/dashboard/myNotes')
         }
   };
 
