@@ -1,17 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { axiosSecure } from "../../../Hooks/useAxiosSecure";
 import useUser from "../../../Hooks/useUser";
-import { FcViewDetails } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
-import { GiNotebook } from "react-icons/gi";
 
 const BookedSessions = () => {
   const { user } = useUser();
 
   const {
-    refetch,
     isLoading,
     data: bookedSessions = [],
   } = useQuery({
@@ -21,6 +16,8 @@ const BookedSessions = () => {
       return res;
     },
   });
+
+console.log(bookedSessions.data);
 
   return (
     <div className="w-full">

@@ -10,7 +10,6 @@ const DashboardNav = () => {
       navigate("/");
     });
   };
-  // console.log(savedUser?.role, savedUser?.email);
 
   return (
     <div className=" relative h-screen">
@@ -19,6 +18,7 @@ const DashboardNav = () => {
       <div
         className={`flex flex-col ${
           savedUser?.role == "tutor" ? "" : "hidden"
+       &&   savedUser?.role == "tutor" ? "" : "hidden"
         }`}
       >
         <ActiveNavlink label="My Sessions" address="/dashboard/tutorSessions" />
@@ -46,10 +46,7 @@ const DashboardNav = () => {
           label="Booked Sessions"
           address="/dashboard/bookedSessions"
         />
-        <ActiveNavlink
-          label="Create a Note"
-          address="/dashboard/createNote"
-        />
+        <ActiveNavlink label="Create a Note" address="/dashboard/createNote" />
         <ActiveNavlink label="My Notes" address="/dashboard/myNotes" />
 
         <div>
