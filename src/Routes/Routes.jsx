@@ -17,6 +17,7 @@ import CreateNote from "../Pages/Dashboard/Student/CreateNote";
 import MyNotes from "../Pages/Dashboard/Student/MyNotes";
 import MyStudyMaterials from "../Pages/Dashboard/Student/MyStudyMaterials";
 import BookedSessionDetails from "../Pages/Dashboard/Student/BookedSessionDetails";
+import UpdateNotes from "../Pages/Dashboard/Student/UpdateNotes";
 
 
 const router = createBrowserRouter([
@@ -101,6 +102,12 @@ const router = createBrowserRouter([
       {
         path: "createNote",
         element: <CreateNote></CreateNote>
+      },
+      {
+        path: "updateNote/:id",
+        element: <UpdateNotes></UpdateNotes>
+       
+      
       },
     ]
   }

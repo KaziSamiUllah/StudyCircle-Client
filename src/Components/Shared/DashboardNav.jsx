@@ -1,5 +1,4 @@
-import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ActiveNavlink from "./ActiveNavlink";
 import useUser from "../../Hooks/useUser";
 
@@ -11,7 +10,7 @@ const DashboardNav = () => {
       navigate("/");
     });
   };
-  console.log(savedUser?.role, savedUser?.email);
+  // console.log(savedUser?.role, savedUser?.email);
 
   return (
     <div className=" relative h-screen">

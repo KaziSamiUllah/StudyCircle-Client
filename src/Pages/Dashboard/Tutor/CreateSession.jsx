@@ -1,9 +1,10 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import useUser from "../../../Hooks/useUser";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const CreateSession = () => {
-
+const axiosSecure= useAxiosSecure()
   const{savedUser} = useUser()
 
   const handleSubmit = (e) => {
@@ -26,7 +27,7 @@ const CreateSession = () => {
 
     const data = {sessionTitle, tutorName, tutorEmail, sessionDescription, regStart, regEnd, classStart, classEnd, status, lessons, fee, duration, rating, materials}
 console.log(data);
-    axios.post('http://localhost:5000/sessions',data)
+    axiosSecure.post('/sessions',data)
     .then(res=>{console.log(res)
       if(res.statusText == "OK"){
         Swal.fire({
