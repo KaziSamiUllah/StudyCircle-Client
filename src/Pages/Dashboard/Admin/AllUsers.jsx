@@ -47,8 +47,6 @@ const AllUsers = () => {
         footer: '<a href="#">Why do I have this issue?</a>',
       });
     }
-
-    console.log(res);
     setEditing(false);
   };
 
@@ -61,10 +59,28 @@ const AllUsers = () => {
       ) : (
         <div>
           <div className="overflow-x-auto">
-            <h1 className=" px-6 py-3 w-full text-2xl text-center leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <h1 className=" px-6 py-3 w-full text-2xl text-center leading-4 font-medium text-gray-500 uppercase tracking-wider ">
               All Users
             </h1>
-            <table className="mx-20 ">
+            <div className=" flex justify-end my-5 mx-24">
+              <label className="input input-sm input-bordered flex items-center gap-2 w-1/4">
+                <input type="text" name="search" className="grow" placeholder="Search" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </label>
+            </div>
+
+            <table className=" w-10/12 mx-auto drop-shadow-lg">
               <thead className="bg-gray-50">
                 <tr>
                   <th className=" px-6 py-3 w-2/5 text-center  ">Users</th>
@@ -115,7 +131,7 @@ const AllUsers = () => {
                           editingID === user._id && (
                             <form
                               onSubmit={handleRoleUpdate}
-                              className="flex flex-col space-y-2 w-32 "
+                              className="flex flex-col space-y-2 w-full  border-2 p-1 rounded-xl"
                             >
                               <select
                                 name="roleSelect"
@@ -128,14 +144,14 @@ const AllUsers = () => {
                                 <option value="Tutor"> Tutor</option>
                                 <option value="Admin">Admin</option>
                               </select>
-                              <input type="submit" value="Update" />
+                              <input
+                                type="submit"
+                                value="Update"
+                                className="btn-sm btn bg-secondary"
+                              />
                             </form>
                           )
                         )}
-
-                        <button className="ml-4 text-3xl text-red-600 hover:text-red-900 focus:outline-none focus:underline">
-                          <MdDeleteForever />
-                        </button>
                       </td>
                     </tr>
                   ))}
