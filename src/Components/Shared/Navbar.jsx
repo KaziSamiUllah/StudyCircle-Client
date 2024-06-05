@@ -43,21 +43,21 @@ const Navbar = () => {
                   <li>{user.email}</li>
                   <li>Role: {savedUser && savedUser?.role} </li>
                   <li className="bg-accent font-bold rounded-lg ">
-                    {savedUser?.role === "tutor" ? (
-                      <Link to="dashboard/tutorSessions">Dashboard</Link>
-                    ) : (
-                      savedUser?.role === "student" ? (
-                        <Link to="/dashboard/bookedSessions">Dashboard</Link>
-                      ) : (
-                        "/"
-                      )
-
-
-
-                    )}
+                    <Link
+                      to={
+                        savedUser?.role === "tutor"
+                          ? "dashboard/tutorSessions"
+                          : savedUser?.role === "student"
+                          ? "/dashboard/bookedSessions"
+                          : savedUser?.role === "admin"
+                          ? "/dashboard/admin/allUsers"
+                          : "/"
+                      }
+                    >
+                      Dashboard
+                    </Link>
                   </li>
 
-    
                   <li>
                     <button className="btn" onClick={handleSingOut}>
                       Sign Out

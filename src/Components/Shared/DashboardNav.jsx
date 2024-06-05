@@ -17,8 +17,11 @@ const DashboardNav = () => {
       {/* Tutor Nav Links */}
       <div
         className={`flex flex-col ${
-          savedUser?.role == "tutor" ? "" : "hidden"
-       &&   savedUser?.role == "tutor" ? "" : "hidden"
+          savedUser?.role == "tutor"
+            ? ""
+            : "hidden" && savedUser?.role == "tutor"
+            ? ""
+            : "hidden"
         }`}
       >
         <ActiveNavlink label="My Sessions" address="/dashboard/tutorSessions" />
@@ -55,6 +58,28 @@ const DashboardNav = () => {
             address="/dashboard/studentMaterials"
           />
         </div>
+        <div>
+          <ActiveNavlink
+            label="My Session Materials"
+            address="/dashboard/studentMaterials"
+          />
+        </div>
+      </div>
+      {/* Admin ROutes */}
+      <div
+        className={` flex flex-col ${
+          savedUser?.role == "admin" ? "" : "hidden"
+        }`}
+      >
+        <ActiveNavlink label="All Users" address="/dashboard/admin/allUsers" />
+        <ActiveNavlink
+          label="All Study Sessions"
+          address="/dashboard/admin/studySessions"
+        />
+        <ActiveNavlink
+          label="All Materials"
+          address="/dashboard/admin/allMaterials"
+        />
       </div>
 
       <div className="bg-red-100 absolute bottom-0 w-full ">

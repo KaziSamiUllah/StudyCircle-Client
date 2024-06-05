@@ -7,14 +7,14 @@ const useUser = () => {
     const {user, SignOut} = useContext(AuthContext)
     const axiosSecure = useAxiosSecure()
 
-    const { isLoading, data = {} } = useQuery({
+    const { isLoading, data = {}, isPending } = useQuery({
         queryKey: ["userData"],
         queryFn: async () => {
           const res = await axiosSecure.get(`/users/${user.email}`);
           return res;
         },
       });
-    return {user, SignOut, savedUser: data.data};
+    return {user, SignOut, savedUser: data.data, isPending};
 };
 
 export default useUser;

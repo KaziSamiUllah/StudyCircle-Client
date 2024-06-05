@@ -2,9 +2,11 @@ import useUser from "../../../Hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaDownload, FaGoogleDrive } from "react-icons/fa";
-import JsFileDownloader from 'js-file-downloader';
+import JsFileDownloader from "js-file-downloader";
+import { useState } from "react";
 
 const MyStudyMaterials = () => {
+  const { showImage, setShowImage } = useState(false);
   const axiosSecure = useAxiosSecure();
   const { user } = useUser();
 
@@ -17,18 +19,6 @@ const MyStudyMaterials = () => {
       return res;
     },
   });
-
-
-  function downloadImage(url, filename) {
-    var anchor = document.createElement('a');
-    anchor.href = url;
-     anchor.download = filename;
-    anchor.click();
-  }
-
-
-
-
 
   console.log(bookedSessionmaterials.data);
 
@@ -62,7 +52,13 @@ const MyStudyMaterials = () => {
                     {material?.materialTitle}
                   </td>
                   <td className="py-2 px-4 border-b text-center">
-                    {material?.tutorEmail}
+                    <h1>{material?.tutorEmail}</h1>
+
+                    {/* <div className="chat">
+                      <div className="chat-bubble">
+                        <img className="h-60" src={material?.URL} alt="" />
+                      </div>
+                    </div> */}
                   </td>
                   <td className="py-2 px-4 border-b text-center">
                     {" "}
@@ -82,8 +78,8 @@ const MyStudyMaterials = () => {
                     {" "}
                     <button
                       onClick={() =>
-                        new JsFileDownloader({ 
-                          url: material?.URL
+                        new JsFileDownloader({
+                          url: material?.URL,
                         })
                       }
                       className="btn btn-link text-black"

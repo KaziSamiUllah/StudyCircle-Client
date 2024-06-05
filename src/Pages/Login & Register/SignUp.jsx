@@ -81,8 +81,8 @@ const SignUp = () => {
             {...register("role", { required: true })}
             className="mt-1 p-2 border rounded-md w-full"
           >
-            <option value="student">Student</option>
-            <option value="tutor">Tutor</option>
+            <option value="Student">Student</option>
+            <option value="Tutor">Tutor</option>
             {/* <option value="admin">Admin</option> */}
           </select>
         </div>

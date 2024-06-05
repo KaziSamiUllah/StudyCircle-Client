@@ -18,99 +18,112 @@ import MyNotes from "../Pages/Dashboard/Student/MyNotes";
 import MyStudyMaterials from "../Pages/Dashboard/Student/MyStudyMaterials";
 import BookedSessionDetails from "../Pages/Dashboard/Student/BookedSessionDetails";
 import UpdateNotes from "../Pages/Dashboard/Student/UpdateNotes";
-
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
+import AllStudySessions from "../Pages/Dashboard/Admin/AllStudySessions";
+import AllMaterials from "../Pages/Dashboard/Admin/AllMaterials";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PublicLayout></PublicLayout>,  
+    element: <PublicLayout></PublicLayout>,
     children: [
       {
         path: "/",
         element: <Home></Home>,
       },
       {
-        path: '/login',
-        element: <Login></Login>
+        path: "/login",
+        element: <Login></Login>,
       },
       {
-        path: '/signUp',
-        element: <SignUp></SignUp>
+        path: "/signUp",
+        element: <SignUp></SignUp>,
       },
       {
-        path: '/sessionDetails/:id',
-        element: <SessionDetails></SessionDetails>
+        path: "/sessionDetails/:id",
+        element: <SessionDetails></SessionDetails>,
       },
-
-    ]
+    ],
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     element: <Dashboard></Dashboard>,
     children: [
-
       //////////////Tutor routes////////////////
       {
         path: "createSession",
-        element: <CreateSession></CreateSession>
+        element: <CreateSession></CreateSession>,
       },
       {
         path: "tutorSessions",
-        element: <TutorSessions></TutorSessions>
+        element: <TutorSessions></TutorSessions>,
       },
       {
         path: "tutorMaterials",
-        element: <TutorMaterials></TutorMaterials>
+        element: <TutorMaterials></TutorMaterials>,
       },
       {
         path: "uploadMaterials/:id",
-        element: <UploadMaterials></UploadMaterials>
+        element: <UploadMaterials></UploadMaterials>,
       },
       {
         path: "updateMaterials/:id",
-        element: <EditMaterials></EditMaterials>
+        element: <EditMaterials></EditMaterials>,
       },
       {
         path: "allNotes",
-        element: <AllNotes></AllNotes>
+        element: <AllNotes></AllNotes>,
       },
       //////Student Routes//////////////
       {
         path: "bookedSessions",
-        element: <BookedSessions></BookedSessions>
+        element: <BookedSessions></BookedSessions>,
       },
       {
         path: "createNote",
-        element: <CreateNote></CreateNote>
+        element: <CreateNote></CreateNote>,
       },
       {
         path: "myNotes",
-        element: <MyNotes></MyNotes>
+        element: <MyNotes></MyNotes>,
       },
       {
         path: "createNote",
-        element: <CreateNote></CreateNote>
+        element: <CreateNote></CreateNote>,
       },
       {
         path: "studentMaterials",
-        element: <MyStudyMaterials></MyStudyMaterials>
+        element: <MyStudyMaterials></MyStudyMaterials>,
       },
       {
         path: "bookedSessionDetails/:id",
-        element: <BookedSessionDetails></BookedSessionDetails>
+        element: <BookedSessionDetails></BookedSessionDetails>,
       },
       {
         path: "createNote",
-        element: <CreateNote></CreateNote>
+        element: <CreateNote></CreateNote>,
       },
       {
         path: "updateNote/:id",
-        element: <UpdateNotes></UpdateNotes>
-       
-      
+        element: <UpdateNotes></UpdateNotes>,
       },
-    ]
-  }
+
+
+      //////////Admin Routes///////////
+      {
+        path:"admin/allUsers",
+        element: <AllUsers></AllUsers>
+      },
+      {
+        path:"admin/studySessions",
+        element: <AllStudySessions></AllStudySessions>
+      },
+      {
+        path:"admin/allMaterials",
+        element: <AllMaterials></AllMaterials>
+      }
+    ],
+  },
 ]);
 
 export default router;
