@@ -1,27 +1,104 @@
-import React from "react";
 import useUser from "../../../Hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { RiH1 } from "react-icons/ri";
+import { FaDownload, FaGoogleDrive } from "react-icons/fa";
+import JsFileDownloader from 'js-file-downloader';
 
 const MyStudyMaterials = () => {
-    const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const { user } = useUser();
 
   const { isLoading, data: bookedSessionmaterials = {} } = useQuery({
     queryKey: ["bookedSessionmaterials"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/bookedSessionMaterials/${user.email}`);
+      const res = await axiosSecure.get(
+        `/bookedSessionMaterials/${user.email}`
+      );
       return res;
     },
   });
 
-console.log(bookedSessionmaterials);
+
+  function downloadImage(url, filename) {
+    var anchor = document.createElement('a');
+    anchor.href = url;
+     anchor.download = filename;
+    anchor.click();
+  }
 
 
-  return <div>
-    {bookedSessionmaterials?.data?.length>0 && bookedSessionmaterials?.data?.map((material, idx)=><h1 key={idx} >{material.materialTitle}</h1>) }
-    </div>;
+
+
+
+  console.log(bookedSessionmaterials.data);
+
+  return (
+    // <div>
+    //   {bookedSessionmaterials?.data?.length > 0 &&
+    //     bookedSessionmaterials?.data?.map((material, idx) => (
+    //       <h1 key={idx}>{material.materialTitle}</h1>
+    //     ))}
+    // </div>
+    <div className="w-full">
+      {isLoading ? (
+        <div className=" flex justify-center items-center min-h-screen text-center">
+          <span className="loading loading-ring loading-lg"></span>
+        </div>
+      ) : (
+        <div>
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b">Session Title</th>
+                <th className="py-2 px-4 border-b">Tutor Email</th>
+                <th className="py-2 px-4 border-b ">Drive Links</th>
+                <th className="py-2 px-4 border-b">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookedSessionmaterials?.data?.map((material) => (
+                <tr key={material.sessionID}>
+                  <td className="py-2 px-4 border-b text-center">
+                    {material?.materialTitle}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center">
+                    {material?.tutorEmail}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center">
+                    {" "}
+                    <a
+                      href={material?.link}
+                      className="flex justify-center items-center gap-2"
+                    >
+                      {" "}
+                      <FaGoogleDrive />
+                      <span className="text-blue-600 underline font-semibold">
+                        {" "}
+                        Link
+                      </span>
+                    </a>
+                  </td>
+                  <td className="py-2 px-4 border-b flex justify-center">
+                    {" "}
+                    <button
+                      onClick={() =>
+                        new JsFileDownloader({ 
+                          url: material?.URL
+                        })
+                      }
+                      className="btn btn-link text-black"
+                    >
+                      Download Image <FaDownload />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default MyStudyMaterials;

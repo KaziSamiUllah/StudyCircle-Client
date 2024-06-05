@@ -41,7 +41,7 @@ const Navbar = () => {
                 >
                   <li>{savedUser?.name || "undefined"}</li>
                   <li>{user.email}</li>
-                  <li>Role: {savedUser?.role} </li>
+                  <li>Role: {savedUser && savedUser?.role} </li>
                   <li className="bg-accent font-bold rounded-lg ">
                     {savedUser?.role === "tutor" ? (
                       <Link to="dashboard/tutorSessions">Dashboard</Link>
