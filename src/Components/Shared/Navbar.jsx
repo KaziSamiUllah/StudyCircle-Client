@@ -46,7 +46,7 @@ const Navbar = () => {
                     <Link
                       to={
                         savedUser?.role === "tutor"
-                          ? "dashboard/tutorSessions"
+                          ? "/dashboard/tutorSessions"
                           : savedUser?.role === "student"
                           ? "/dashboard/bookedSessions"
                           : savedUser?.role === "admin"

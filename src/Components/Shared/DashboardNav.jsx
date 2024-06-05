@@ -58,12 +58,6 @@ const DashboardNav = () => {
             address="/dashboard/studentMaterials"
           />
         </div>
-        <div>
-          <ActiveNavlink
-            label="My Session Materials"
-            address="/dashboard/studentMaterials"
-          />
-        </div>
       </div>
       {/* Admin ROutes */}
       <div
