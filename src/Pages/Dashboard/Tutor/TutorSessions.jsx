@@ -71,8 +71,8 @@ const TutorSessions = () => {
                   <td className="py-2 px-4 border-b text-center">
                     {session.fee}
                   </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    {session.status}
+                  <td className="py-2 px-4 border-b text-center ">
+                    <h1 className={`${session.status === "Approved"? "text-green-400" : session.status === "Pending"? "text-blue-400": session.status === "Rejected"? "text-red-400": ""} font-semibold`}>{session.status}</h1>
                   </td>
                   <td className="py-2 px-4 border-b ">
                     <div className="text-center">

@@ -39,7 +39,7 @@ const TutorMaterials = () => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          deleteSession(id);
+          deleteMaterial(id);
   
           Swal.fire({
             title: "Deleted!",
@@ -50,7 +50,7 @@ const TutorMaterials = () => {
       });
     };
   
-    const deleteSession = async (id) => {
+    const deleteMaterial = async (id) => {
       const res = await axiosSecure.delete(`/materials/${id}`);
       console.log(res.data);
       if (res.data.acknowledged === true) {
