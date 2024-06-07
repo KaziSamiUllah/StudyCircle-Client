@@ -30,7 +30,7 @@ const SessionCard = ({ session }) => {
           <hr className="text-slate-500 border-slate-500 w-full" />
 
           <div className="card-actions justify-between items-center ">
-            <h1 className="font-bold">{ (regEnd > currentDate && currentDate > regStart)&& "Ongoing" || (regStart > currentDate )&& "Upcoming" }</h1>
+            <h1 className="font-bold">{ (regEnd >= currentDate && currentDate >= regStart)&& "Ongoing" || (regStart > currentDate )&& "Upcoming" }</h1>
            
               <Link
                 to={`/sessionDetails/${_id}`}

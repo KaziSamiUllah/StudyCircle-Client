@@ -37,7 +37,8 @@ const axiosSecure = useAxiosSecure()
         });
       }
   }
-
+  const ongoing = (sessionData?.regEnd >= currentDate && currentDate >= sessionData?.regStart)
+console.log(ongoing);
 
 
 
@@ -46,8 +47,11 @@ const axiosSecure = useAxiosSecure()
     <div className="my-10 max-w-5xl mx-auto p-10 bg-white shadow-md rounded-lg">
       <ViewBookDetails sessionData={sessionData}></ViewBookDetails>
       <div className="flex mt-5 justify-end">
-        <button onClick={()=>handleBooking(ID)} disabled={(savedUser?.role !== "student") || !(sessionData?.regEnd > currentDate && currentDate > sessionData?.regStart)} className="btn btn-neutral text-white font-bold hover:bg-secondary hover:text-black text-lg">
-          {(sessionData?.regEnd > currentDate && currentDate > sessionData?.regStart)? "Book Now" : "Registration Closed" }</button>
+        <button onClick={()=>handleBooking(ID)} 
+        disabled={(savedUser?.role !== "student") || !ongoing}
+        
+        className="btn btn-neutral text-white font-bold hover:bg-secondary hover:text-black text-lg">
+          {ongoing? "Book Now" : "Registration Closed" }</button>
       </div>
     </div>
   );

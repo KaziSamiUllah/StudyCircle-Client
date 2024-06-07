@@ -23,7 +23,6 @@ const axiosSecure= useAxiosSecure()
     const fee = formData.get("fee");
     const duration = formData.get('duration')
     const rating = 0;
-    const materials = [];
 
     const data = {sessionTitle, tutorName, tutorEmail, sessionDescription, regStart, regEnd, classStart, classEnd, status, lessons, fee, duration, rating, materials}
 console.log(data);
