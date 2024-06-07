@@ -21,6 +21,7 @@ import UpdateNotes from "../Pages/Dashboard/Student/UpdateNotes";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import AllStudySessions from "../Pages/Dashboard/Admin/AllStudySessions";
 import AllMaterials from "../Pages/Dashboard/Admin/AllMaterials";
+import UpdateSession from "../Pages/Dashboard/Admin/UpdateSession";
 
 const router = createBrowserRouter([
   {
@@ -108,19 +109,22 @@ const router = createBrowserRouter([
         element: <UpdateNotes></UpdateNotes>,
       },
 
-
       //////////Admin Routes///////////
       {
-        path:"admin/allUsers",
-        element: <AllUsers></AllUsers>
+        path: "admin/allUsers",
+        element: <AllUsers></AllUsers>,
       },
       {
-        path:"admin/studySessions",
-        element: <AllStudySessions></AllStudySessions>
+        path: "admin/studySessions",
+        element: <AllStudySessions></AllStudySessions>,
       },
       {
-        path:"admin/allMaterials",
-        element: <AllMaterials></AllMaterials>
+        path: "admin/allMaterials",
+        element: <AllMaterials></AllMaterials>,
+      },
+      {
+        path: "admin/editSession/:id",
+        element:<UpdateSession></UpdateSession>,
       }
     ],
   },

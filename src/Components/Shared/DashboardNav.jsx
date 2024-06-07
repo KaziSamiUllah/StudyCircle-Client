@@ -76,7 +76,7 @@ const DashboardNav = () => {
         />
       </div>
 
-      <div className="bg-red-100 absolute bottom-0 w-full ">
+      <div className="bg-red-100 w-2/12 bottom-0  fixed">
         <button className="btn btn-square w-full" onClick={handleSingOut}>
           Sign Out
         </button>

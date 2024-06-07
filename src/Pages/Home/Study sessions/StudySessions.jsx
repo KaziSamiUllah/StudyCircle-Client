@@ -8,7 +8,7 @@ const StudySessions = () => {
   const { isLoading, data = [] } = useQuery({
     queryKey: ["repoData"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/sessions");
+      const res = await axiosSecure.get("/approvedSessions");
       return res;
     },
   });

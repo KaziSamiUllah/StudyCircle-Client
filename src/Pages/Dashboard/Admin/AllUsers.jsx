@@ -63,7 +63,7 @@ const AllUsers = () => {
               All Users
             </h1>
             <div className=" flex justify-end my-5 mx-24">
-              <label className="input input-sm input-bordered flex items-center gap-2 w-1/4">
+              <label className="input input-sm input-bordered flex items-center gap-2 w-1/4 bg-white">
                 <input type="text" name="search" className="grow" placeholder="Search" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ const AllUsers = () => {
               </label>
             </div>
 
-            <table className=" w-10/12 mx-auto drop-shadow-lg">
+            <table className=" w-11/12 mx-auto drop-shadow-lg">
               <thead className="bg-gray-50">
                 <tr>
                   <th className=" px-6 py-3 w-2/5 text-center  ">Users</th>

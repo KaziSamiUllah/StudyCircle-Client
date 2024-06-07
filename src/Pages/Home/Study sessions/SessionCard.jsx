@@ -1,15 +1,19 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import useOngoing from "../../../Hooks/useOngoing";
 import useMoment from "../../../Hooks/useMoment";
 
 const SessionCard = ({ session }) => {
   // console.log(session);
-  const { sessionTitle, tutorName, sessionDescription, lessons,regStart, regEnd, _id } =
-    session;
-  const currentDate = useMoment()
- 
-
+  const {
+    sessionTitle,
+    tutorName,
+    sessionDescription,
+    lessons,
+    regStart,
+    regEnd,
+    _id,
+  } = session;
+  const currentDate = useMoment();
 
   return (
     <div>
@@ -30,15 +34,19 @@ const SessionCard = ({ session }) => {
           <hr className="text-slate-500 border-slate-500 w-full" />
 
           <div className="card-actions justify-between items-center ">
-            <h1 className="font-bold">{ (regEnd >= currentDate && currentDate >= regStart)&& "Ongoing" || (regStart > currentDate )&& "Upcoming" }</h1>
-           
-              <Link
-                to={`/sessionDetails/${_id}`}
-                className="text-base btn btn-sm btn-ghost rounded-full flex flex-row items-center gap-1"
-              >
-                Read more <FaArrowRight className="text-secondary"/>
-              </Link>
-       
+            <h1 className="font-bold">
+              {(regEnd >= currentDate &&
+                currentDate >= regStart &&
+                "Ongoing") ||
+                (regStart > currentDate && "Upcoming")}
+            </h1>
+
+            <Link
+              to={`/sessionDetails/${_id}`}
+              className="text-base btn btn-sm btn-ghost rounded-full flex flex-row items-center gap-1"
+            >
+              Read more <FaArrowRight className="text-secondary" />
+            </Link>
           </div>
         </div>
       </div>
