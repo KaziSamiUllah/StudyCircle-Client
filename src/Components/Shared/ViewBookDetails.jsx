@@ -5,7 +5,7 @@ const ViewBookDetails = ({sessionData}) => {
       <p className="text-lg font-medium mb-1">
         Tutor: {sessionData?.tutorName}
       </p>
-      <p className="text-lg font-medium mb-1">Average Rating: 5</p>
+      <p className="text-lg font-medium mb-1">Average Rating: {sessionData?.rating}</p>
       <p className="text-base text-gray-600 mb-4">
         {sessionData?.sessionDescription}
       </p>

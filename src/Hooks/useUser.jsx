@@ -1,20 +1,22 @@
-import { useContext } from 'react';
-import { AuthContext } from '../Providers/AuthProviders';
-import useAxiosSecure from './useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProviders";
+import useAxiosSecure from "./useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const useUser = () => {
-    const {user, SignOut} = useContext(AuthContext)
-    const axiosSecure = useAxiosSecure()
+  const { user, SignOut } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
 
-    const { isLoading, data = {}, isPending } = useQuery({
-        queryKey: ["userData"],
-        queryFn: async () => {
-          const res = await axiosSecure.get(`/users/${user.email}`);
-          return res;
-        },
-      });
-    return {user, SignOut, savedUser: data.data, isPending};
+  const {
+    data = {},
+    isPending,
+    refetch,
+  } = useQuery({
+    queryKey: ["userData"],
+    queryFn: () => axiosSecure.get(`/users/${user.email}`),
+    enabled: !!user?.email,
+  });
+  return { user, SignOut, savedUser: data.data, isPending, refetch };
 };
 
 export default useUser;

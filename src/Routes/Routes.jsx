@@ -22,6 +22,8 @@ import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import AllStudySessions from "../Pages/Dashboard/Admin/AllStudySessions";
 import AllMaterials from "../Pages/Dashboard/Admin/AllMaterials";
 import UpdateSession from "../Pages/Dashboard/Admin/UpdateSession";
+import ReApply from "../Pages/Dashboard/Tutor/ReApply";
+
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "allNotes",
         element: <AllNotes></AllNotes>,
+      },
+      {
+        path: "reApply/:id",
+        element: <ReApply></ReApply>,
       },
       //////Student Routes//////////////
       {

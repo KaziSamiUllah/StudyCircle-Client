@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useUser from "../../../Hooks/useUser";
@@ -8,51 +9,62 @@ import { useParams } from "react-router-dom";
 const UpdateSession = () => {
   const axiosSecure = useAxiosSecure();
   const { savedUser } = useUser();
-  const ID = useParams().id;
-  console.log(ID);
+  const { id: ID } = useParams();
   const { sessionData, refetch } = useFetchSessionbyId(ID);
-  console.log(sessionData);
+
+  const [formValues, setFormValues] = useState({
+    sessionTitle: "",
+    tutorName: "",
+    tutorEmail: "",
+    sessionDescription: "",
+    regStart: "",
+    regEnd: "",
+    classStart: "",
+    classEnd: "",
+    duration: "",
+    lessons: "",
+    fee: "",
+    status: ""
+  });
+
+  useEffect(() => {
+    if (sessionData) {
+      setFormValues({
+        sessionTitle: sessionData.sessionTitle || "",
+        tutorName: savedUser?.name || "",
+        tutorEmail: savedUser?.email || "",
+        sessionDescription: sessionData.sessionDescription || "",
+        regStart: sessionData.regStart || "",
+        regEnd: sessionData.regEnd || "",
+        classStart: sessionData.classStart || "",
+        classEnd: sessionData.classEnd || "",
+        duration: sessionData.duration || "",
+        lessons: sessionData.lessons || "",
+        fee: sessionData.fee || "",
+        status: sessionData.status || "Pending"
+      });
+    }
+  }, [sessionData, savedUser]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const sessionTitle = formData.get("sessionTitle");
-    const tutorName = formData.get("tutorName");
-    const tutorEmail = formData.get("tutorEmail");
-    const sessionDescription = formData.get("sessionDescription");
-    const regStart = formData.get("regStart");
-    const regEnd = formData.get("regEnd");
-    const classStart = formData.get("classStart");
-    const classEnd = formData.get("classEnd");
-    const status = formData.get("status");
-    const lessons = formData.get("lessons");
-    const fee = formData.get("fee");
-    const duration = formData.get("duration");
 
-    const data = {
-      sessionTitle,
-      tutorName,
-      tutorEmail,
-      sessionDescription,
-      regStart,
-      regEnd,
-      classStart,
-      classEnd,
-      status,
-      lessons,
-      fee,
-      duration,
-    };
-    console.log(data);
     axiosSecure
-      .put(`/updateSessionFull/${ID}`, data)
+      .put(`/updateSessionFull/${ID}`, formValues)
       .then((res) => {
-        console.log(res);
-        if (res.statusText == "OK") {
+        if (res.statusText === "OK") {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "New session has been posted for approval",
+            title: "Session has been updated successfully",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -63,9 +75,9 @@ const UpdateSession = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-10/12 mx-auto mt-8 ">
+    <form onSubmit={handleSubmit} className="w-10/12 mx-auto mt-8">
       <h1 className="text-center text-3xl font-semibold my-5">
-        Update session data
+        Update Session Data
       </h1>
       <div className="grid grid-cols-2 gap-5">
         <div>
@@ -76,7 +88,8 @@ const UpdateSession = () => {
             <input
               type="text"
               name="sessionTitle"
-              defaultValue={sessionData?.sessionTitle}
+              value={formValues.sessionTitle}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -88,7 +101,7 @@ const UpdateSession = () => {
             <input
               type="text"
               name="tutorName"
-              defaultValue={savedUser?.name}
+              value={formValues.tutorName}
               readOnly
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -100,7 +113,7 @@ const UpdateSession = () => {
             <input
               type="text"
               name="tutorEmail"
-              defaultValue={savedUser?.email}
+              value={formValues.tutorEmail}
               readOnly
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -110,9 +123,9 @@ const UpdateSession = () => {
               Session Description:
             </label>
             <textarea
-              type="text"
               name="sessionDescription"
-              defaultValue={sessionData?.sessionDescription}
+              value={formValues.sessionDescription}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -123,7 +136,8 @@ const UpdateSession = () => {
             <input
               type="date"
               name="regStart"
-              defaultValue={sessionData?.regStart}
+              value={formValues.regStart}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -134,7 +148,8 @@ const UpdateSession = () => {
             <input
               type="date"
               name="regEnd"
-              defaultValue={sessionData?.regEnd}
+              value={formValues.regEnd}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -147,7 +162,8 @@ const UpdateSession = () => {
             <input
               type="date"
               name="classStart"
-              defaultValue={sessionData?.regStart}
+              value={formValues.classStart}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -158,7 +174,8 @@ const UpdateSession = () => {
             <input
               type="date"
               name="classEnd"
-              defaultValue={sessionData?.classEnd}
+              value={formValues.classEnd}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -171,7 +188,8 @@ const UpdateSession = () => {
               name="duration"
               min="0"
               step="0.5"
-              defaultValue={sessionData?.duration}
+              value={formValues.duration}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -183,7 +201,8 @@ const UpdateSession = () => {
             <input
               type="number"
               name="lessons"
-              defaultValue={sessionData?.lessons}
+              value={formValues.lessons}
+              onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -196,8 +215,9 @@ const UpdateSession = () => {
               type="number"
               name="fee"
               min="0"
-              defaultValue={sessionData?.fee}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight "
+              value={formValues.fee}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
             />
           </div>
           <div className="mb-4">
@@ -206,12 +226,10 @@ const UpdateSession = () => {
             </label>
             <input
               name="status"
-              defaultValue={sessionData?.status}
+              value={formValues.status}
               readOnly
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            >
-              {/* Add additional status options here */}
-            </input>
+            />
           </div>
         </div>
       </div>
@@ -222,4 +240,5 @@ const UpdateSession = () => {
     </form>
   );
 };
+
 export default UpdateSession;

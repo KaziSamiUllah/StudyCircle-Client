@@ -3,40 +3,43 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const CreateNote =  () => {
+const CreateNote = () => {
   const { user } = useUser();
-  const axiosSecure = useAxiosSecure()
-  const navigate = useNavigate()
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const noteTitle = formData.get("noteTitle");
     const noteDescription = formData.get("noteDescription");
-    const note ={ userEmail: user?.email, noteTitle, noteDescription };
+    const note = { userEmail: user?.email, noteTitle, noteDescription };
     console.log(note);
-    const res =  await axiosSecure.post('/notes', note)
-    console.log(res);
-    if(res.status===200)
-        {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Your note has been saved",
-                showConfirmButton: false,
-                timer: 1500
-              });
-              navigate('/dashboard/myNotes')
-        }
+    try {
+      const res = await axiosSecure.post("/notes", note);
+      console.log(res);
+      if (res.status === 200) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your note has been saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/dashboard/myNotes");
+      }
+    } catch {
+      (error) => {
+        console.error(error);
+      };
+    }
   };
-
-
-
-
 
   return (
     <div className="w-10/12 mx-auto">
       <div>
-        <h1 className=" px-6 py-3 bg-gray-50 text-2xl text-center leading-4 font-medium text-gray-500 uppercase tracking-wider ">Add Note</h1>
+        <h1 className=" px-6 py-3 bg-gray-50 text-2xl text-center leading-4 font-medium text-gray-500 uppercase tracking-wider ">
+          Add Note
+        </h1>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

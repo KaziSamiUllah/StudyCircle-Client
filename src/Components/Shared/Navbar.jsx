@@ -1,10 +1,13 @@
 import { AiFillSlackCircle } from "react-icons/ai";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useUser from "../../Hooks/useUser";
 
+
 const Navbar = () => {
-  const { user, SignOut, savedUser } = useUser();
-  // console.log(savedUser);
+
+
+  const { user, SignOut, savedUser} = useUser();
+  console.log(savedUser?.role);
   const handleSingOut = () => {
     SignOut();
   };
@@ -43,19 +46,23 @@ const Navbar = () => {
                   <li>{user.email}</li>
                   <li>Role: {savedUser && savedUser?.role} </li>
                   <li className="bg-accent font-bold rounded-lg ">
-                    <Link
-                      to={
-                        savedUser?.role === "tutor"
-                          ? "/dashboard/tutorSessions"
-                          : savedUser?.role === "student"
-                          ? "/dashboard/bookedSessions"
-                          : savedUser?.role === "admin"
-                          ? "/dashboard/admin/allUsers"
-                          : "/"
-                      }
-                    >
-                      Dashboard
-                    </Link>
+                    {savedUser ? (
+                      <Link
+                        to={
+                          savedUser && savedUser?.role === "tutor"
+                            ? "/dashboard/tutorSessions"
+                            :  savedUser && savedUser?.role === "student"
+                            ? "/dashboard/bookedSessions"
+                            :   savedUser && savedUser?.role === "admin"
+                            ? "/dashboard/admin/allUsers"
+                            : "/"
+                        }
+                      >
+                        Dashboard
+                      </Link>
+                    ) : (
+                      ""
+                    )}
                   </li>
 
                   <li>
