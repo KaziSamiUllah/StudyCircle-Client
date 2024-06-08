@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Swal from 'sweetalert2';
 import useFetchSessionbyId from './useFetchSessionbyId';
@@ -24,11 +24,11 @@ const useBooking = (id) => {
       tutorName: sessionData?.tutorName,
       tutorEmail: sessionData?.tutorEmail,
     };
-
+    
     try {
       const res = await axiosSecure.post("/bookings", bookingData);
       console.log(res);
-      if (res.data.acknowledged) {
+      if (res?.data?.acknowledged === true) {
         setStatus(true)
         // Swal.fire({
         //   position: "center",

@@ -9,6 +9,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useUser from "../../../../Hooks/useUser";
 import Swal from "sweetalert2";
 import useBooking from "../../../../Hooks/useBooking";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({sessionData}) => {
   const stripe = useStripe();
@@ -16,10 +17,49 @@ const CheckoutForm = ({sessionData}) => {
   const axiosSecure = useAxiosSecure();
   const [errorMessage, setError] = useState();
   const [clientSecret, setClientSecret] = useState("");
-const price = 50
-// const price = sessionData?.fee;
+  const navigate = useNavigate()
+const price = sessionData?.fee;
 const {user} = useUser()
-// const {status, handleBooking, isLoading, error } = useBooking(sessionData?._id);
+// console.log(sessionData?._id);
+const id = sessionData?._id
+console.log(id);
+
+
+
+  const bookingData = {
+    sessionID: id,
+    sessionTitle: sessionData?.sessionTitle,
+    StudentEmail: user?.email,
+    tutorName: sessionData?.tutorName,
+    tutorEmail: sessionData?.tutorEmail,
+  };
+
+  const handleBooking = async () => {
+    const res = await axiosSecure.post("/bookings", bookingData);
+    if (res.data.acknowledged) {
+    //   Swal.fire({
+    //     position: "center",
+    //     icon: "success",
+    //     title: "Study session has been booked",
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   });
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // console.log(status);
 
@@ -69,8 +109,17 @@ if(paymentError){
 }
 else{
     console.log("paymetn Intent",paymentIntent?.status);
-    // if(paymentIntent?.status == 'succeeded')
-    //   handleBooking();
+    if(paymentIntent?.status == 'succeeded'){
+        handleBooking();
+        Swal.fire({
+            title: "Payment Successfull",
+            text: "Your study session has been booked",
+            icon: "success",
+            showConfirmButton: true,
+          });
+          navigate("/dashboard/bookedSessions")
+    }
+     
     // if(status===true){
     //     Swal.fire({
     //         position: "center",

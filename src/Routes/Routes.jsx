@@ -24,7 +24,8 @@ import AllMaterials from "../Pages/Dashboard/Admin/AllMaterials";
 import UpdateSession from "../Pages/Dashboard/Admin/UpdateSession";
 import ReApply from "../Pages/Dashboard/Tutor/ReApply";
 import Payment from "../Pages/Dashboard/Student/Payments/Payment";
-
+import PrivateRoute from "./PrivateRoute";
+import StudentRoute from "./StudentRoute";
 
 const router = createBrowserRouter([
   {
@@ -45,11 +46,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/sessionDetails/:id",
-        element: <SessionDetails></SessionDetails>,
+        element: (
+          <PrivateRoute>
+            <SessionDetails></SessionDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/payment/:id",
-        element: <Payment></Payment>,
+        element: (
+          <StudentRoute>
+            <Payment></Payment>
+          </StudentRoute>
+        ),
       },
     ],
   },
@@ -89,23 +98,35 @@ const router = createBrowserRouter([
       //////Student Routes//////////////
       {
         path: "bookedSessions",
-        element: <BookedSessions></BookedSessions>,
+        element: (
+          <StudentRoute>
+            <BookedSessions></BookedSessions>
+          </StudentRoute>
+        ),
       },
       {
         path: "createNote",
-        element: <CreateNote></CreateNote>,
+        element: (
+          <StudentRoute>
+            <CreateNote></CreateNote>
+          </StudentRoute>
+        ),
       },
       {
         path: "myNotes",
-        element: <MyNotes></MyNotes>,
+        element: (
+          <StudentRoute>
+            <MyNotes></MyNotes>
+          </StudentRoute>
+        ),
       },
       {
         path: "createNote",
-        element: <CreateNote></CreateNote>,
+        element: <StudentRoute><CreateNote></CreateNote></StudentRoute>,
       },
       {
         path: "studentMaterials",
-        element: <MyStudyMaterials></MyStudyMaterials>,
+        element: <StudentRoute><MyStudyMaterials></MyStudyMaterials></StudentRoute>,
       },
       {
         path: "bookedSessionDetails/:id",
@@ -119,7 +140,6 @@ const router = createBrowserRouter([
         path: "updateNote/:id",
         element: <UpdateNotes></UpdateNotes>,
       },
-    
 
       //////////Admin Routes///////////
       {
@@ -136,8 +156,8 @@ const router = createBrowserRouter([
       },
       {
         path: "admin/editSession/:id",
-        element:<UpdateSession></UpdateSession>,
-      }
+        element: <UpdateSession></UpdateSession>,
+      },
     ],
   },
 ]);
