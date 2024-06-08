@@ -2,12 +2,8 @@ import { AiFillSlackCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import useUser from "../../Hooks/useUser";
 
-
 const Navbar = () => {
-
-
-  const { user, SignOut, savedUser} = useUser();
-  console.log(savedUser?.role);
+  const { user, SignOut, savedUser } = useUser();
   const handleSingOut = () => {
     SignOut();
   };
@@ -51,9 +47,9 @@ const Navbar = () => {
                         to={
                           savedUser && savedUser?.role === "tutor"
                             ? "/dashboard/tutorSessions"
-                            :  savedUser && savedUser?.role === "student"
+                            : savedUser && savedUser?.role === "student"
                             ? "/dashboard/bookedSessions"
-                            :   savedUser && savedUser?.role === "admin"
+                            : savedUser && savedUser?.role === "admin"
                             ? "/dashboard/admin/allUsers"
                             : "/"
                         }

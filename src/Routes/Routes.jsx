@@ -23,6 +23,7 @@ import AllStudySessions from "../Pages/Dashboard/Admin/AllStudySessions";
 import AllMaterials from "../Pages/Dashboard/Admin/AllMaterials";
 import UpdateSession from "../Pages/Dashboard/Admin/UpdateSession";
 import ReApply from "../Pages/Dashboard/Tutor/ReApply";
+import Payment from "../Pages/Dashboard/Student/Payments/Payment";
 
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/sessionDetails/:id",
         element: <SessionDetails></SessionDetails>,
+      },
+      {
+        path: "/payment/:id",
+        element: <Payment></Payment>,
       },
     ],
   },
@@ -114,6 +119,7 @@ const router = createBrowserRouter([
         path: "updateNote/:id",
         element: <UpdateNotes></UpdateNotes>,
       },
+    
 
       //////////Admin Routes///////////
       {

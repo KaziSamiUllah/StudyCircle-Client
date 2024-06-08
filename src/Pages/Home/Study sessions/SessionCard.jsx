@@ -17,13 +17,13 @@ const SessionCard = ({ session }) => {
 
   return (
     <div>
-      <div className="card w-96  shadow-xl m-5 p-10 bg-white">
+      <div className="card w-96  shadow-xl m-5 p-10 bg-white h-[50vh]">
         <div>
-          <h1 className="text-xl font-semibold">{sessionTitle}</h1>
+          <h1 className="text-xl font-semibold min-h-12">{sessionTitle}</h1>
           <div className="my-2 flex items-center gap-5">
-            <h1>{tutorName}</h1>
+            <h1>Tutor: {tutorName}</h1>
           </div>
-          <p className="w-full">{sessionDescription?.slice(0, 150)}</p>
+          <p className="w-full h-28 ">{sessionDescription?.slice(0, 150)}</p>
         </div>
         <div className="card-body">
           <div className="flex justify-between">
@@ -38,7 +38,9 @@ const SessionCard = ({ session }) => {
               {(regEnd >= currentDate &&
                 currentDate >= regStart &&
                 "Ongoing") ||
-                (regStart > currentDate && "Upcoming")}
+                (regStart > currentDate && "Upcoming") ||
+                (regStart < currentDate && "Closed")
+                }
             </h1>
 
             <Link
