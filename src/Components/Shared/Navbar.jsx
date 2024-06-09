@@ -4,7 +4,7 @@ import useUser from "../../Hooks/useUser";
 
 const Navbar = () => {
   const { user, SignOut, savedUser, isPending } = useUser();
-  console.log(user, savedUser);
+  // console.log(user, savedUser);
   const handleSingOut = () => {
     SignOut();
   };
@@ -45,7 +45,7 @@ const Navbar = () => {
                   {isPending ? (
                     <div className="skeleton h-4 w-full"></div>
                   ) : (
-                    <li>{savedUser?.name}</li>
+                    <li>{savedUser?.name || user?.displayName}</li>
                   )}
 
                   <li>{user.email}</li>

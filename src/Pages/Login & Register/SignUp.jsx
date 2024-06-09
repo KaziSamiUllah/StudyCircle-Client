@@ -5,16 +5,21 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { FcGoogle } from "react-icons/fc";
+import useUploadUserData from "../../Hooks/useUploadUserData";
 
 const SignUp = () => {
-  const { SignUp, loading } = useContext(AuthContext);
+  const { user, SignUp, loading, signInWithGoogle, signInWithGithub } =
+    useContext(AuthContext);
+    const { uploadUserData, error } = useUploadUserData();
+
+  
   const { register, handleSubmit } = useForm();
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate()
- 
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    let imageURL = ''
+    let imageURL = "";
     if (data.image[0]) {
       const formData = new FormData();
       formData.append("image", data.image[0]);
@@ -29,7 +34,6 @@ const SignUp = () => {
         }
       );
       imageURL = response.data.data.url;
-      
     }
     const userData = {
       name: data.name,
@@ -43,25 +47,41 @@ const SignUp = () => {
       console.log(userData);
 
       if (res.user.uid) {
-        axiosSecure
-          .post("/users", userData)
-          .then((response) => {
-            console.log("Response:", response.data);
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Successfully Signed UP",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            navigate('/')
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        uploadUserData(userData)
+        navigate('/');
       }
     });
   };
+
+  const handleGoogleLogIn=()=>{
+   signInWithGoogle()
+    
+  }
+
+
+
+
+
+
+
+  // const uploadUserData = async (userData) => {
+  //   axiosSecure
+  //     .post("/users", userData)
+  //     .then((response) => {
+  //       console.log("Response:", response.data);
+  //       Swal.fire({
+  //         position: "top-end",
+  //         icon: "success",
+  //         title: "Successfully Signed UP",
+  //         showConfirmButton: false,
+  //         timer: 1500,
+  //       });
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // };
 
   return (
     <div className="bg-white p w-1/3  mx-auto p-10 m-10 rounded-2xl drop-shadow-xl">
@@ -157,6 +177,13 @@ const SignUp = () => {
           </Link>
         </h2>
       </form>
+      <hr />
+      <div
+              onClick={handleGoogleLogIn}
+              className="text-black mt-5 text-4xl  flex w-fit mx-auto btn rounded-full px-1"
+            >
+              <FcGoogle />
+            </div>
     </div>
   );
 };
