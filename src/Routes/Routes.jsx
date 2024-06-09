@@ -27,6 +27,7 @@ import Payment from "../Pages/Dashboard/Student/Payments/Payment";
 import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
+import AllDisplaySessions from "../Pages/Home/Study sessions/AllDisplaySessions";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SessionDetails></SessionDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/allDisplaySessions",
+        element: (
+          <PrivateRoute>
+           <AllDisplaySessions></AllDisplaySessions>
           </PrivateRoute>
         ),
       },

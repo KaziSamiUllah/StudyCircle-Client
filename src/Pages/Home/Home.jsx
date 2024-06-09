@@ -1,5 +1,5 @@
 import Banner from "./Banner/Banner";
-import Tutors from "./SessionDetails/Tutors/Tutors";
+import Tutors from "./Tutors/Tutors";
 import StudySessions from "./Study sessions/StudySessions";
 
 const Home = () => {

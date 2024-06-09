@@ -1,25 +1,65 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProviders";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { SignUp, loading } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate()
+ 
 
-  const onSubmit = (data) => {
-    SignUp(data.email, data.password).then((res) => {
-      console.log(res.user.uid)
-      const userData = {name:data.name, email: data.email,role: data.role}
-    if(res.user.uid){
-        axios.post('http://localhost:5000/users', userData)
-        .then(response => {
-          console.log('Response:', response.data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+  const onSubmit = async (data) => {
+    let imageURL = ''
+    if (data.image[0]) {
+      const formData = new FormData();
+      formData.append("image", data.image[0]);
+
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formData,
+        {
+          params: {
+            key: "0797d4ee38bdb9a92d846524045a5347",
+          },
+        }
+      );
+      imageURL = response.data.data.url;
+      
     }
+    const userData = {
+      name: data.name,
+      email: data.email,
+      role: data.role,
+      imageURL: imageURL || "",
+    };
+
+    SignUp(data.email, data.password).then((res) => {
+      console.log(res.user.uid);
+      console.log(userData);
+
+      if (res.user.uid) {
+        axiosSecure
+          .post("/users", userData)
+          .then((response) => {
+            console.log("Response:", response.data);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Successfully Signed UP",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate('/')
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     });
   };
 
@@ -86,14 +126,36 @@ const SignUp = () => {
             {/* <option value="admin">Admin</option> */}
           </select>
         </div>
-       <div className="flex justify-center">
-       <button
-          type="submit"
-          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary"
-        >
-          Sign Up
-        </button>
-       </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="image"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Profile Image:
+          </label>
+          <input
+            type="file"
+            id="image"
+            {...register("image")}
+            className="mt-1 p-2 border rounded-md w-full"
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary"
+          >
+            Sign Up
+          </button>
+        </div>
+        <h2 className="text-black mt-5">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500 font-bold">
+            LOGIN
+          </Link>
+        </h2>
       </form>
     </div>
   );

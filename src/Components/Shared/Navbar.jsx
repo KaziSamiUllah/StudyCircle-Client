@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import useUser from "../../Hooks/useUser";
 
 const Navbar = () => {
-  const { user, SignOut, savedUser } = useUser();
+  const { user, SignOut, savedUser, isPending } = useUser();
+  console.log(user, savedUser);
   const handleSingOut = () => {
     SignOut();
   };
@@ -12,7 +13,7 @@ const Navbar = () => {
     <div>
       <div className="navbar h-16">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl gap-0">
+          <Link to="/" className="btn btn-ghost text-2xl gap-0">
             <span>
               <AiFillSlackCircle />
             </span>
@@ -24,12 +25,15 @@ const Navbar = () => {
             <div className="">
               <div className="dropdown dropdown-hover">
                 <div tabIndex={0} role="button" className=" m-1">
-                  <div className="w-10 mask mask-squircle">
+                  <div className="w-10 mask mask-squircle h-10 flex justify-center items-center ">
                     <img
+                      className="w-full"
                       src={
                         user?.photoURL
                           ? user.photoURL
-                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ6QbAPJOG3NsnkipeqR5pmTu12X7WU8F4g_WHDTcmBw&s"
+                          : savedUser?.imageURL
+                          ? savedUser.imageURL
+                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
                       }
                     />
                   </div>
@@ -38,29 +42,42 @@ const Navbar = () => {
                   tabIndex={0}
                   className="right-0 dropdown-content z-[10] menu bg-base-100 rounded-box w-fit space-y-5 p-5 shadow-md shadow-slate-500"
                 >
-                  <li>{savedUser?.name || "undefined"}</li>
-                  <li>{user.email}</li>
-                  <li>Role: {savedUser && savedUser?.role} </li>
-                  <li className="bg-accent font-bold rounded-lg ">
-                    {savedUser ? (
-                      <Link
-                        to={
-                          savedUser && savedUser?.role === "tutor"
-                            ? "/dashboard/tutorSessions"
-                            : savedUser && savedUser?.role === "student"
-                            ? "/dashboard/bookedSessions"
-                            : savedUser && savedUser?.role === "admin"
-                            ? "/dashboard/admin/allUsers"
-                            : "/"
-                        }
-                      >
-                        Dashboard
-                      </Link>
-                    ) : (
-                      ""
-                    )}
-                  </li>
+                  {isPending ? (
+                    <div className="skeleton h-4 w-full"></div>
+                  ) : (
+                    <li>{savedUser?.name}</li>
+                  )}
 
+                  <li>{user.email}</li>
+
+                  {isPending ? (
+                    <div className="skeleton h-4 w-full"></div>
+                  ) : (
+                    <li>Role: {savedUser && savedUser?.role} </li>
+                  )}
+                  {isPending ? (
+                    <div className="skeleton h-4 w-full"></div>
+                  ) : (
+                    <li className="bg-accent font-bold rounded-lg ">
+                      {savedUser ? (
+                        <Link
+                          to={
+                            savedUser && savedUser?.role === "tutor"
+                              ? "/dashboard/tutorSessions"
+                              : savedUser && savedUser?.role === "student"
+                              ? "/dashboard/bookedSessions"
+                              : savedUser && savedUser?.role === "admin"
+                              ? "/dashboard/admin/allUsers"
+                              : "/"
+                          }
+                        >
+                          Dashboard
+                        </Link>
+                      ) : (
+                        ""
+                      )}
+                    </li>
+                  )}
                   <li>
                     <button className="btn" onClick={handleSingOut}>
                       Sign Out

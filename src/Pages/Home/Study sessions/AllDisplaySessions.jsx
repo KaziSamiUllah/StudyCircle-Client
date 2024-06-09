@@ -1,26 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import SessionCard from "./SessionCard";
 import { Link } from "react-router-dom";
 
-const StudySessions = () => {
+const AllDisplaySessions = () => {
   const axiosSecure = useAxiosSecure();
 
   const { isLoading, data = [] } = useQuery({
     queryKey: ["viewSessions"],
     queryFn: async () => {
       const res = await axiosSecure.get("/approvedSessions");
-      const slicedData = res.data.slice(0, 6);
-      return slicedData;
+      return res.data;
     },
   });
-
-  console.log(data);
 
   return (
     <div>
       <h1 className="section-title">Sessions</h1>
-
       <div>
         {isLoading ? (
           <div className="flex ">
@@ -45,13 +42,8 @@ const StudySessions = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-center">
-        <Link to="/allDisplaySessions">
-          <button className="btn">Vew All</button>
-        </Link>
-      </div>
     </div>
   );
 };
 
-export default StudySessions;
+export default AllDisplaySessions;

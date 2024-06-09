@@ -8,6 +8,7 @@ import StarRating from "../../../Components/Shared/StarRating";
 import useBooking from "../../../Hooks/useBooking";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
 const SessionDetails = () => {
   const { savedUser } = useUser();
@@ -82,18 +83,17 @@ const SessionDetails = () => {
         )}
       </div>
       <div className="review-list bg-gray-100 p-6 rounded-lg mt-10">
-        <h2 className="text-2xl font-bold mb-4">Student Reviews</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Student Reviews</h2>
         {data?.data?.map((review, index) => (
           <div
             key={index}
             className=" rounded-lg m-2 border-b bg-white p-5 border-gray-300 pb-4 mb-4"
           >
-            <h3 className="text-xl font-semibold mb-2">{review.title}</h3>
-
-            <p className="text-gray-800 mb-2">{review.review}</p>
-            <p className="text-gray-600 font-semibold">-{review.studentName}</p>
+           <StarRating rating={review.rating}></StarRating>
+            <p className="text-gray-600 mb-2 flex my-5"><FaQuoteLeft /><span className="text-lg mx-2 text-black">{review.review}</span><FaQuoteRight /></p>
+            <p className="text-gray-600 font-bold">-{review.studentName}</p>
             {/* <p className="text-gray-600">Rating: {review.rating}/5</p> */}
-            <StarRating rating={review.rating}></StarRating>
+            
           </div>
         ))}
       </div>

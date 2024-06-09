@@ -9,9 +9,21 @@ const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [isEditing, setEditing] = useState(false);
   const [editingID, setEditingID] = useState();
-  const [newRole, setNewRole] = useState();
+  const [searchedTxt, setSearchedTxt] = useState("");
+  const [users, setUsers] = useState([]);
 
   //   console.log(editingID);
+
+  const handleSearch = async () => {
+    try {
+      const res = await axiosSecure.get(`/allUsers?search=${searchedTxt}`);
+      console.log(res.data);
+      setUsers(res?.data)
+    } catch (error) {
+      console.error("Error searching users:", error);
+    }
+  };
+
   const {
     isPending,
     error,
@@ -21,9 +33,12 @@ const AllUsers = () => {
     queryKey: ["allUserData"],
     queryFn: async () => {
       const res = await axiosSecure.get("/allUsers");
-      return res;
+      if(!searchedTxt){setUsers(res.data);}
+      
     },
   });
+
+  // console.log(users);
 
   const handleRoleUpdate = async (e) => {
     e.preventDefault();
@@ -64,19 +79,28 @@ const AllUsers = () => {
             </h1>
             <div className=" flex justify-end my-5 mx-5">
               <label className="input input-sm input-bordered flex items-center gap-2 w-1/4 bg-white">
-                <input type="text" name="search" className="grow" placeholder="Search" />
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <input
+                  type="text"
+                  name="search"
+                  value={searchedTxt}
+                  onChange={(e) => setSearchedTxt(e.target.value)}
+                  className="grow"
+                  placeholder="Search"
+                />
+                <button onClick={handleSearch}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="w-4 h-4 opacity-70"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
               </label>
             </div>
 
@@ -89,8 +113,8 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y  ">
-                {allUsers &&
-                  allUsers?.data.map((user) => (
+                {users &&
+                  users?.map((user) => (
                     <tr key={user._id}>
                       <td className="px-6 py-4 ">
                         <div className="flex items-center ">
