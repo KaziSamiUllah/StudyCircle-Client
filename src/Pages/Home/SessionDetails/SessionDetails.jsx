@@ -6,6 +6,8 @@ import useUser from "../../../Hooks/useUser";
 import useMoment from "../../../Hooks/useMoment";
 import StarRating from "../../../Components/Shared/StarRating";
 import useBooking from "../../../Hooks/useBooking";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const SessionDetails = () => {
   const { savedUser } = useUser();
@@ -17,31 +19,25 @@ const SessionDetails = () => {
   const { sessionData } = useFetchSessionbyId(id);
   const { handleBooking, isLoading, error } = useBooking(id);
 
+  const axiosSecure = useAxiosSecure();
+  const {
+    data = {},
+    isPending,
+    refetch,
+  } = useQuery({
+    queryKey: ["reviewSession"],
+    queryFn: async () => await axiosSecure.get(`/reviews/${id}`),
+    enabled: !!id,
+  });
+  console.log(data.data);
 
-  // const bookingData = {
-  //   sessionID: id,
-  //   sessionTitle: sessionData?.sessionTitle,
-  //   StudentEmail: savedUser?.email,
-  //   tutorName: sessionData?.tutorName,
-  //   tutorEmail: sessionData?.tutorEmail,
-  // };
 
-  // const handleBooking = async () => {
-  //   const res = await axiosSecure.post("/bookings", bookingData);
-  //   console.log(res.data.acknowledged);
-  //   if (res.data.acknowledged) {
-  //     Swal.fire({
-  //       position: "center",
-  //       icon: "success",
-  //       title: "Study session has been booked",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //   }
-  // };
+
+
+
+
   const ongoing =
     sessionData?.regEnd >= currentDate && currentDate >= sessionData?.regStart;
-  console.log(ongoing);
   const reviews = [
     {
       title: "Amazing Product!",
@@ -87,15 +83,15 @@ const SessionDetails = () => {
       </div>
       <div className="review-list bg-gray-100 p-6 rounded-lg mt-10">
         <h2 className="text-2xl font-bold mb-4">Student Reviews</h2>
-        {reviews.map((review, index) => (
+        {data?.data?.map((review, index) => (
           <div
             key={index}
             className=" rounded-lg m-2 border-b bg-white p-5 border-gray-300 pb-4 mb-4"
           >
             <h3 className="text-xl font-semibold mb-2">{review.title}</h3>
 
-            <p className="text-gray-800 mb-2">{review.body}</p>
-            <p className="text-gray-600 font-semibold">-{review.author}</p>
+            <p className="text-gray-800 mb-2">{review.review}</p>
+            <p className="text-gray-600 font-semibold">-{review.studentName}</p>
             {/* <p className="text-gray-600">Rating: {review.rating}/5</p> */}
             <StarRating rating={review.rating}></StarRating>
           </div>

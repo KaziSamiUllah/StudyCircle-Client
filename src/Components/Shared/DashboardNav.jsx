@@ -17,9 +17,9 @@ const DashboardNav = () => {
       {/* Tutor Nav Links */}
       <div
         className={`flex flex-col ${
-          savedUser?.role == "tutor"
+          savedUser?.role == "Tutor"
             ? ""
-            : "hidden" && savedUser?.role == "tutor"
+            : "hidden" && savedUser?.role == "Tutor"
             ? ""
             : "hidden"
         }`}
@@ -33,11 +33,7 @@ const DashboardNav = () => {
           label="My Materials"
           address="/dashboard/tutorMaterials"
         />
-        {/* <ActiveNavlink
-          label="Upload Materials"
-          address="/dashboard/uploadMaterials"
-        /> */}
-        <ActiveNavlink label="All Notes" address="/dashboard/allNotes" />
+  
       </div>
       {/* Student nav links */}
       <div

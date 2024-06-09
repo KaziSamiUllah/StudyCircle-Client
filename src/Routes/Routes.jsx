@@ -26,6 +26,7 @@ import ReApply from "../Pages/Dashboard/Tutor/ReApply";
 import Payment from "../Pages/Dashboard/Student/Payments/Payment";
 import PrivateRoute from "./PrivateRoute";
 import StudentRoute from "./StudentRoute";
+import TutorRoute from "./TutorRoute";
 
 const router = createBrowserRouter([
   {
@@ -69,27 +70,23 @@ const router = createBrowserRouter([
       //////////////Tutor routes////////////////
       {
         path: "createSession",
-        element: <CreateSession></CreateSession>,
+        element: <TutorRoute><CreateSession></CreateSession></TutorRoute>,
       },
       {
         path: "tutorSessions",
-        element: <TutorSessions></TutorSessions>,
+        element: <TutorRoute><TutorSessions></TutorSessions></TutorRoute>,
       },
       {
         path: "tutorMaterials",
-        element: <TutorMaterials></TutorMaterials>,
+        element: <TutorRoute><TutorMaterials></TutorMaterials></TutorRoute>,
       },
       {
         path: "uploadMaterials/:id",
-        element: <UploadMaterials></UploadMaterials>,
+        element: <TutorRoute><UploadMaterials></UploadMaterials></TutorRoute>,
       },
       {
         path: "updateMaterials/:id",
-        element: <EditMaterials></EditMaterials>,
-      },
-      {
-        path: "allNotes",
-        element: <AllNotes></AllNotes>,
+        element: <TutorRoute><EditMaterials></EditMaterials></TutorRoute>,
       },
       {
         path: "reApply/:id",
@@ -122,23 +119,43 @@ const router = createBrowserRouter([
       },
       {
         path: "createNote",
-        element: <StudentRoute><CreateNote></CreateNote></StudentRoute>,
+        element: (
+          <StudentRoute>
+            <CreateNote></CreateNote>
+          </StudentRoute>
+        ),
       },
       {
         path: "studentMaterials",
-        element: <StudentRoute><MyStudyMaterials></MyStudyMaterials></StudentRoute>,
+        element: (
+          <StudentRoute>
+            <MyStudyMaterials></MyStudyMaterials>
+          </StudentRoute>
+        ),
       },
       {
         path: "bookedSessionDetails/:id",
-        element: <BookedSessionDetails></BookedSessionDetails>,
+        element: (
+          <StudentRoute>
+            <BookedSessionDetails></BookedSessionDetails>
+          </StudentRoute>
+        ),
       },
       {
         path: "createNote",
-        element: <CreateNote></CreateNote>,
+        element: (
+          <StudentRoute>
+            <CreateNote></CreateNote>
+          </StudentRoute>
+        ),
       },
       {
         path: "updateNote/:id",
-        element: <UpdateNotes></UpdateNotes>,
+        element: (
+          <StudentRoute>
+            <UpdateNotes></UpdateNotes>
+          </StudentRoute>
+        ),
       },
 
       //////////Admin Routes///////////

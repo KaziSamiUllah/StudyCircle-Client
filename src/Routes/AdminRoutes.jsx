@@ -6,14 +6,14 @@ const StudentRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <span className="loading loading-ring loading-lg"></span>;
+    <span className="loading loading-ring loading-lg"></span>;
   }
 
-  if (!loading && user && savedUser?.role === "student") {
+  if (user && savedUser?.role === "admin") {
     return children;
   }
 
-  return <Navigate to="/login" state={{ from: location }} replace />;
+  return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 
 export default StudentRoute;

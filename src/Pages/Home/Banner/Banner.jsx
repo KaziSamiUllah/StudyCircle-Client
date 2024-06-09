@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="h-[calc(100vh-50px)] ">
+    <div className="h-[calc(100vh-50px)] bg-cover bg-bo bg-[url(https://i.ibb.co/jGpJtsp/Abstract-art-bg.jpg)] " >
       <div className="flex flex-row ">
         <div className="w-1/2 flex justify-center items-center h-[calc(100vh-50px)] ">
           <h1 className=" text-left ml-24  text-5xl reddit-mono-600  ">
