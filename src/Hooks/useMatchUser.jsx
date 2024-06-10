@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import useAxiosSecure from './useAxiosSecure';
+import { useState, useEffect } from "react";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useMatchUser = (email) => {
   const [exists, setExists] = useState(null);
@@ -8,17 +8,15 @@ const useMatchUser = (email) => {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        console.log(email);
         const response = await axiosSecure.get(`/users/${email}`);
-        console.log(response?.data);
+
         if (response?.data) {
           setExists(true);
-
         } else {
           setExists(false);
         }
       } catch (error) {
-        console.error('Error checking user:', error);
+        console.error("Error checking user:", error);
         setExists(false);
       }
     };

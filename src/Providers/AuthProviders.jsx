@@ -13,6 +13,8 @@ import app from "../Firebase/firebase.config";
 import { GithubAuthProvider } from "firebase/auth/web-extension";
 import useMatchUser from "../Hooks/useMatchUser";
 import useUploadUserData from "../Hooks/useUploadUserData";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -20,13 +22,12 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const userExists = useMatchUser(user?.email);
+  const axiosPublic = useAxiosPublic()
   const { uploadUserData, error } = useUploadUserData();
 
-console.log(userExists);
 
 const userdata={ email: user?.email, imageURL: user?.photoURL || "", name: user?.displayName, role: "Student" }
 
-console.log(userdata);
 
 const auth = getAuth(app);
 
@@ -62,26 +63,7 @@ const auth = getAuth(app);
     return signOut(auth);
   };
 
-  /////////////////User Role checker//////////////
-  //  const [userData, setUserData] = useState(null);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://readopia-server-one.vercel.app/users/${user?.email}`, {
-  //       withCredentials: true
-  //     })
-  //     .then((res) => {
-  //       setUserData(res.data);
-  //       console.log(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching user data:", error);
-  //     });
-  // }, [user]);
-
-  // console.log(userData);
-
-  //  user State (Logged in or not)
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -89,30 +71,35 @@ const auth = getAuth(app);
       const userEmail = currentUser?.email || user?.email;
       const JWTpayload = { email: userEmail };
 
-      // if (currentUser) {
-      //   axios
-      //     .post("https://readopia-server-one.vercel.app/jwt", JWTpayload, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       console.log("token response", res.data);
-      //     });
-      // } else {
-      //   axios
-      //     .post("https://readopia-server-one.vercel.app/logout", JWTpayload, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       console.log(res.data);
-      //     });
-      // }
+      if (currentUser) {
+        axios
+          .post("/jwt", JWTpayload, {
+            // withCredentials: true,
+          })
+          .then((res) => {
+            console.log("token response", res.data);
+            if (res?.data?.token){
+              localStorage.setItem("Token", res.data.token)
+            }
+          });
+      } else {
+        localStorage.removeItem("Token")
+        // axiosPublic
+        //   .post("/logout", JWTpayload, {
+        //     // withCredentials: true,
+        //   })
+        //   .then((res) => {
+        //     console.log(res.data);
+            
+        //   });
+      }
     });
     return () => {
       //CleanUP
       unSubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+   
+  }, [axiosPublic, user?.email, auth]);
 
   const UpdateUserData = (userName, img) => {
     return updateProfile(auth.currentUser, {

@@ -1,14 +1,15 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
+// Creating a public axios instance
 export const axiosPublic = axios.create({
-    baseURL:"http://localhost:5000"
-})
-
+    baseURL: "https://study-circle-server-six.vercel.app/"
+});
 
 const useAxiosPublic = () => {
-    return (
-      axiosPublic
-    );
+    // const navigate = useNavigate();
+
+    return axiosPublic;
 };
 
 export default useAxiosPublic;

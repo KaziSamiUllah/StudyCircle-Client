@@ -6,8 +6,10 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
+      <div className="mx-24">
       <StudySessions></StudySessions>
       <Tutors role ={"Tutor"}></Tutors>
+      </div>
     </div>
   );
 };

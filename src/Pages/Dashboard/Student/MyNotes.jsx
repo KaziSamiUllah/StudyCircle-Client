@@ -17,11 +17,10 @@ const MyNotes = () => {
     refetch,
     data: notes = [],
   } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["notes"],
     queryFn: async () =>
-      await fetch(`http://localhost:5000/notes/${user.email}`).then((res) =>
-        res.json()
-      ),
+      await axiosSecure.get(`/notes/${user.email}`)
+     
   });
 
   //   const {
@@ -82,8 +81,8 @@ const MyNotes = () => {
               </tr>
             </thead>
             <tbody>
-              {notes?.length > 0 &&
-                notes?.map((note) => (
+              {notes?.data?.length > 0 &&
+                notes?.data?.map((note) => (
                   <tr key={note._id}>
                     <td className="py-2 px-4 border-b text-center">
                       {note?.noteTitle}

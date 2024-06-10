@@ -2,14 +2,16 @@ import useUser from "../Hooks/useUser";
 import { useLocation, Navigate } from "react-router-dom";
 
 const StudentRoute = ({ children }) => {
-  const { user, savedUser, loading } = useUser();
+  const { user, savedUser, isPending } = useUser();
   const location = useLocation();
 
-  if (loading) {
-    return <span className="loading loading-ring loading-lg"></span>;
+  if (isPending) {
+    return <div className="flex w-full h-screen justify-center items-center">
+      <span className="loading loading-ring loading-lg"></span>
+    </div>;
   }
 
-  if (!loading && user && savedUser?.role === "student") {
+  else if (savedUser?.role === "student") {
     return children;
   }
 

@@ -18,7 +18,7 @@ const AllUsers = () => {
     try {
       const res = await axiosSecure.get(`/allUsers?search=${searchedTxt}`);
       console.log(res.data);
-      setUsers(res?.data)
+      setUsers(res?.data);
     } catch (error) {
       console.error("Error searching users:", error);
     }
@@ -32,9 +32,13 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["allUserData"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/allUsers");
-      if(!searchedTxt){setUsers(res.data);}
-      
+      if (!searchedTxt) {
+        const res = await axiosSecure.get("/allUsers");
+        {
+          setUsers(allUsers.data);
+        }
+        return res;
+      }
     },
   });
 
@@ -159,11 +163,10 @@ const AllUsers = () => {
                             >
                               <select
                                 name="roleSelect"
+                                defaultValue={user.role}
                                 className="select select-bordered select-sm w-full"
                               >
-                                <option disabled selected>
-                                  Select a role
-                                </option>
+                                <option disabled>Select a role</option>
                                 <option value="Student">Student</option>
                                 <option value="Tutor"> Tutor</option>
                                 <option value="Admin">Admin</option>

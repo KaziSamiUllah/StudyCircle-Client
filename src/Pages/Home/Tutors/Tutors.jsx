@@ -4,7 +4,6 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Tutors = ({ role }) => {
   const axiosSecure = useAxiosSecure();
-  console.log(role);
   const {
     data = {},
     isPending,
@@ -14,7 +13,7 @@ const Tutors = ({ role }) => {
     queryFn: async () => await axiosSecure.get(`/usersbyRole/${role}`),
     enabled: !!role,
   });
-  console.log(data.data);
+
 
   return (
     <div>

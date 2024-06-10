@@ -15,12 +15,9 @@ const StudySessions = () => {
     },
   });
 
-  console.log(data);
-
   return (
     <div>
       <h1 className="section-title">Sessions</h1>
-
       <div>
         {isLoading ? (
           <div className="flex ">
