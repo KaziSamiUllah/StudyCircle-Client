@@ -1,9 +1,9 @@
 const Banner = () => {
   return (
-    <div className="h-[calc(100vh-50px)] bg-cover bg-bo bg-[url(https://i.ibb.co/jGpJtsp/Abstract-art-bg.jpg)] " >
-      <div className="flex flex-row ">
-        <div className="w-1/2 flex justify-center items-center h-[calc(100vh-50px)] ">
-          <h1 className=" text-left ml-24  text-5xl reddit-mono-600  ">
+    <div className="h-[calc(100vh-50px)] bg-cover bg-bo bg-[url(https://i.ibb.co/jGpJtsp/Abstract-art-bg.jpg)] ">
+      <div className="flex flex-col lg:flex-row ">
+        <div className="lg:w-1/2 flex justify-center items-center h-[calc(100vh-50px)] ">
+          <h1 className=" text-center lg:text-left lg:ml-24  text-5xl reddit-mono-600  ">
             <span className="text-primary">Learn</span>,{" "}
             <span className="text-secondary">Achieve</span>,{" "}
             <span className="text-[#06D6A0]">Succeed</span>: <br />
@@ -11,7 +11,7 @@ const Banner = () => {
           </h1>
         </div>
         <div className="w-1/2">
-          <div className="relative h-full flex justify-center items-center ">
+          <div className="hidden  relative h-full lg:flex justify-center items-center ">
             <div className="relative w-full h-full ">
               <img
                 className="w-1/2 absolute rounded-xl "

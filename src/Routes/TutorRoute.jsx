@@ -9,7 +9,7 @@ const TutorRoute = ({ children }) => {
     <span className="loading loading-ring loading-lg"></span>;
   }
 
-  if (user && savedUser?.role === "tutor") {
+  if (user && savedUser?.role === "Tutor") {
     return children;
   }
 

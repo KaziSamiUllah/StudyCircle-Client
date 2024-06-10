@@ -14,16 +14,17 @@ import { GithubAuthProvider } from "firebase/auth/web-extension";
 import useMatchUser from "../Hooks/useMatchUser";
 import useUploadUserData from "../Hooks/useUploadUserData";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic()
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const userExists = useMatchUser(user?.email);
-  const axiosPublic = useAxiosPublic()
-  const { uploadUserData, error } = useUploadUserData();
+  const { uploadUserData} = useUploadUserData();
 
 
 const userdata={ email: user?.email, imageURL: user?.photoURL || "", name: user?.displayName, role: "Student" }
@@ -72,7 +73,7 @@ const auth = getAuth(app);
       const JWTpayload = { email: userEmail };
 
       if (currentUser) {
-        axios
+        axiosPublic
           .post("/jwt", JWTpayload, {
             // withCredentials: true,
           })
@@ -99,7 +100,7 @@ const auth = getAuth(app);
       unSubscribe();
     };
    
-  }, [axiosPublic, user?.email, auth]);
+  }, [user?.email, auth]);
 
   const UpdateUserData = (userName, img) => {
     return updateProfile(auth.currentUser, {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProviders";
 
 
@@ -10,9 +10,8 @@ export const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-// const navigate = useNavigate()
-  
 
+  // const navigate = useNavigate()
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("Token");
@@ -37,7 +36,8 @@ const useAxiosSecure = () => {
       console.log(status);
       if (status === 401 || status === 403) {
         // await SignOut()
-        // navigate("/login");
+        //navigate('/')
+///TODO: fix it//////////
       }
 
       return Promise.reject(error);

@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <div className="mx-24">
+      <div className="mx-2 lg:mx-24">
       <StudySessions></StudySessions>
       <Tutors role ={"Tutor"}></Tutors>
       </div>

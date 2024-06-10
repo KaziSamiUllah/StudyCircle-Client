@@ -62,11 +62,11 @@ const Navbar = () => {
                       {savedUser ? (
                         <Link
                           to={
-                            savedUser && savedUser?.role === "tutor"
+                            savedUser && savedUser?.role === "Tutor"
                               ? "/dashboard/tutorSessions"
-                              : savedUser && savedUser?.role === "student"
+                              : savedUser && savedUser?.role === "Student"
                               ? "/dashboard/bookedSessions"
-                              : savedUser && savedUser?.role === "admin"
+                              : savedUser && savedUser?.role === "Admin"
                               ? "/dashboard/admin/allUsers"
                               : "/"
                           }

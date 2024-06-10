@@ -11,7 +11,7 @@ const StudentRoute = ({ children }) => {
     </div>;
   }
 
-  else if (savedUser?.role === "student") {
+  else if (savedUser?.role === "Student") {
     return children;
   }
 

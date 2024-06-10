@@ -66,7 +66,7 @@ const MyNotes = () => {
   return (
     <div className="w-full">
       {isLoading ? (
-        <div className=" flex justify-center items-center min-h-screen text-center">
+        <div className="flex justify-center items-center min-h-screen text-center">
           <span className="loading loading-ring loading-lg"></span>
         </div>
       ) : (

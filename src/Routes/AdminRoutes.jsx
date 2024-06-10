@@ -9,7 +9,7 @@ const StudentRoute = ({ children }) => {
     <span className="loading loading-ring loading-lg"></span>;
   }
 
-  if (user && savedUser?.role === "admin") {
+  if (user && savedUser?.role === "Admin") {
     return children;
   }
 

@@ -8,7 +8,7 @@ const PublicLayout = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className={`${location.pathname !== "/" && "mx-24"}`}>
+      <div className={`${location.pathname !== "/" && "mx-2 lg:mx-24"}`}>
       <Outlet></Outlet>
       </div>
       <Footer></Footer>

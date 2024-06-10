@@ -12,7 +12,7 @@ const DashboardNav = () => {
   };
 
   return (
-    <div className=" relative h-screen">
+    <div className=" relative lg:h-screen ">
       <ActiveNavlink label="Home" address="/" />
       {/* Tutor Nav Links */}
       <div
@@ -38,7 +38,7 @@ const DashboardNav = () => {
       {/* Student nav links */}
       <div
         className={` flex flex-col ${
-          savedUser?.role == "student" ? "" : "hidden"
+          savedUser?.role == "Student" ? "" : "hidden"
         }`}
       >
         <ActiveNavlink
@@ -58,7 +58,7 @@ const DashboardNav = () => {
       {/* Admin ROutes */}
       <div
         className={` flex flex-col ${
-          savedUser?.role == "admin" ? "" : "hidden"
+          savedUser?.role == "Admin" ? "" : "hidden"
         }`}
       >
         <ActiveNavlink label="All Users" address="/dashboard/admin/allUsers" />
@@ -72,7 +72,7 @@ const DashboardNav = () => {
         />
       </div>
 
-      <div className="bg-red-100 w-2/12 bottom-0  fixed">
+      <div className="bg-red-100 lg:w-2/12 bottom-0 lg:fixed">
         <button className="btn btn-square w-full" onClick={handleSingOut}>
           Sign Out
         </button>

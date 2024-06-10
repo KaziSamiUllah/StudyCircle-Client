@@ -130,7 +130,7 @@ const deleteMaterial = async (id)=>{
                       }
                       className="btn btn-link text-black"
                     >
-                      Download Image <FaDownload />
+                      <div className="flex lg:flex-row flex-col gap-2"><h1>Download Image</h1> <FaDownload className="bg-red mx-auto my-2 lg:my-0 "/></div>
                     </button>
                   </td>
                   <td className="text-center"><button onClick={()=>{handleDeleteMaterial(material._id)}} className=" btn-sm btn btn-ghost text-3xl text-red-500"><MdDeleteForever/></button></td>
