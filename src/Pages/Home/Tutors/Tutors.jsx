@@ -14,10 +14,9 @@ const Tutors = ({ role }) => {
     enabled: !!role,
   });
 
-
   return (
     <div>
-      <h1 className="font-bold text-xl text-center my-5 mt-10">Best Tutors are here to assist you</h1>
+      <h1 className="section-title mb-5 mt-12">Best Tutors are here to assist you</h1>
 
       {isPending ? (
         <div className="w-full h-screen flex justify-center items-center">

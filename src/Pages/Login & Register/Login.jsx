@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { SignIn } = useContext(AuthContext);
@@ -22,7 +23,15 @@ const Login = () => {
     SignIn(data.email, data.password).then((res) => {
       console.log(res.user.email);
       if (res.user.email) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User have beenlogged in",
+          showConfirmButton: false,
+          timer: 1500
+        });
         navigate(from, { replace: true });
+      
       }
     });
   };

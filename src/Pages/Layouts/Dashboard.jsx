@@ -7,7 +7,7 @@ const Dashboard = () => {
       <div className="bg-accent  font-bold  lg:min-h-screen lg:w-2/12">
         <DashboardNav></DashboardNav>
       </div>
-      <div className="my-5 lg:w-10/12">
+      <div className="my-10 lg:w-10/12  mx-10">
       <Outlet></Outlet>
       </div>
       

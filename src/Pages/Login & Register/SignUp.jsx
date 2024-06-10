@@ -7,13 +7,13 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
 import useUploadUserData from "../../Hooks/useUploadUserData";
+import { FaGithub } from "react-icons/fa";
 
 const SignUp = () => {
-  const { user, SignUp, loading, signInWithGoogle, signInWithGithub } =
+  const { user, SignUp, loading, signInWithGoogle, SignInWithGitHub } =
     useContext(AuthContext);
-    const { uploadUserData, error } = useUploadUserData();
+  const { uploadUserData, error } = useUploadUserData();
 
-  
   const { register, handleSubmit } = useForm();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
@@ -47,41 +47,31 @@ const SignUp = () => {
       console.log(userData);
 
       if (res.user.uid) {
-        uploadUserData(userData)
-        navigate('/');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User have beenlogged in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        uploadUserData(userData);
+        navigate("/");
       }
     });
   };
 
-  const handleGoogleLogIn=()=>{
-   signInWithGoogle()
-    
-  }
-
-
-
-
-
-
-
-  // const uploadUserData = async (userData) => {
-  //   axiosSecure
-  //     .post("/users", userData)
-  //     .then((response) => {
-  //       console.log("Response:", response.data);
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "success",
-  //         title: "Successfully Signed UP",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // };
+  const handleGoogleLogIn = () => {
+    signInWithGoogle();
+    if (user) {
+      navigate("/");
+    }
+  };
+  const handleGithubLogIn = () => {
+    SignInWithGitHub();
+    if (user) {
+      navigate("/");
+    }
+  };
 
   return (
     <div className="bg-white mx-2 lg:w-1/3  lg:mx-auto p-10 m-10 rounded-2xl drop-shadow-xl">
@@ -178,12 +168,21 @@ const SignUp = () => {
         </h2>
       </form>
       <hr />
+      <div className=" flex flex-row ">
+        <div
+          onClick={handleGoogleLogIn}
+          className="text-black bg-transparent border-none mt-5 text-4xl   mx-auto btn rounded-full px-1"
+        >
+          <FcGoogle />
+        </div>
+      
       <div
-              onClick={handleGoogleLogIn}
-              className="text-black mt-5 text-4xl  flex w-fit mx-auto btn rounded-full px-1"
-            >
-              <FcGoogle />
-            </div>
+        onClick={handleGithubLogIn}
+        className=" bg-white mt-5 text-4xl border-none  mx-auto btn rounded-full px-1"
+      >
+        <FaGithub />
+      </div>
+      </div>
     </div>
   );
 };

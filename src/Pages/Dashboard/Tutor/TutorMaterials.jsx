@@ -74,6 +74,9 @@ const TutorMaterials = () => {
         </div>
       ) : (
         <div>
+          <h1 className=" px-6 py-3 bg-gray-50 text-2xl text-center leading-4 font-medium text-gray-500 uppercase tracking-wider ">
+         My Materials
+        </h1>
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr>

@@ -7,10 +7,10 @@ import {
   signOut,
   GoogleAuthProvider,
   updateProfile,
+  GithubAuthProvider,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../Firebase/firebase.config";
-import { GithubAuthProvider } from "firebase/auth/web-extension";
 import useMatchUser from "../Hooks/useMatchUser";
 import useUploadUserData from "../Hooks/useUploadUserData";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
@@ -53,10 +53,10 @@ const auth = getAuth(app);
     }
   };
   const githubProvider = new GithubAuthProvider();
-  const signInWithGithub = () => {
-    setLoading(true);
-    signInWithPopup(auth, githubProvider);
-  };
+  const SignInWithGitHub = ()=>{
+      setLoading(true);
+      signInWithPopup(auth, githubProvider)
+  }
 
   // Sign Out/ Log Out////
   const SignOut = () => {
@@ -66,8 +66,8 @@ const auth = getAuth(app);
 
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unSubscribe =  onAuthStateChanged(auth, async(currentUser) => {
+     await setUser(currentUser);
       setLoading(false);
       const userEmail = currentUser?.email || user?.email;
       const JWTpayload = { email: userEmail };
@@ -100,7 +100,7 @@ const auth = getAuth(app);
       unSubscribe();
     };
    
-  }, [user?.email, auth]);
+  }, [user?.email, auth, axiosPublic]);
 
   const UpdateUserData = (userName, img) => {
     return updateProfile(auth.currentUser, {
@@ -117,7 +117,7 @@ const auth = getAuth(app);
     UpdateUserData,
     user,
     loading,
-    signInWithGithub,
+    SignInWithGitHub,
   };
 
   return (
