@@ -43,7 +43,7 @@ const SessionDetails = () => {
         {sessionData?.fee > 0 ? (
           <Link
             to={`/payment/${sessionData._id}`}
-            disabled={savedUser?.role !== "student" || !ongoing}
+            disabled={savedUser?.role !== "Student" || !ongoing}
             className="btn btn-neutral text-white font-bold hover:bg-secondary hover:text-black text-lg"
           >
             {ongoing ? "Book Now" : "Registration Closed"}
@@ -51,7 +51,7 @@ const SessionDetails = () => {
         ) : (
           <button
             onClick={() => handleBooking()}
-            disabled={savedUser?.role !== "student" || !ongoing}
+            disabled={savedUser?.role !== "Student" || !ongoing}
             className="btn btn-neutral text-white font-bold hover:bg-secondary hover:text-black text-lg"
           >
             {ongoing ? "Book Now" : "Registration Closed"}

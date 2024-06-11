@@ -8,10 +8,12 @@ import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
 import useUploadUserData from "../../Hooks/useUploadUserData";
 import { FaGithub } from "react-icons/fa";
+import useUser from "../../Hooks/useUser";
 
 const SignUp = () => {
   const { user, SignUp, loading, signInWithGoogle, SignInWithGitHub } =
     useContext(AuthContext);
+    const {refetch} = useUser()
   const { uploadUserData, error } = useUploadUserData();
 
   const { register, handleSubmit } = useForm();
@@ -56,6 +58,7 @@ const SignUp = () => {
         });
         uploadUserData(userData);
         navigate("/");
+        refetch()
       }
     });
   };
@@ -64,12 +67,14 @@ const SignUp = () => {
     signInWithGoogle();
     if (user) {
       navigate("/");
+      refetch()
     }
   };
   const handleGithubLogIn = () => {
     SignInWithGitHub();
     if (user) {
       navigate("/");
+      refetch()
     }
   };
 

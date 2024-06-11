@@ -25,7 +25,59 @@ Here're some of the project's best features:
 *   An admin is the only role that can assign admin roles or any other role to users. They can see all the registered users in All Users page in their Dashboard.
 *   An admin can approve or reject sessions created by tutors. they can post a reason when rejecting and put a price on the sessions when approving.
 
+<h2>🛠️ Installation Steps:</h2>
+
+<p>1. Clone the Client side codes</p>
+
+```
+git clone https://github.com/programming-hero-web-course1/b9a12-client-side-KaziSamiUllah.git
+```
+
+<p>3. Navigate to the client project directory</p>
+
+```
+cd b9a12-client-side-KaziSamiUllah
+```
+
+<p>4. Install dependencies</p>
+
+```
+npm install
+```
+
+<p>5. run the development server</p>
+
+```
+npm run dev
+```
+
+<p>6. Clone Server side codes</p>
+
+```
+https://github.com/programming-hero-web-course1/b9a12-server-side-KaziSamiUllah.git
+```
+
+<p>7. Navigate to the client project directory</p>
+
+```
+cd b9a12-server-side-KaziSamiUllah
+```
+
+<p>8. Install dependencies</p>
+
+```
+npm install
+```
+
+<p>9. run server</p>
+
+```
+nodemon index.js
+```
+
   
+
+
   
 <h2>💻 Built with</h2>
 

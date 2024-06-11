@@ -26,7 +26,7 @@ const DashboardNav = () => {
       >
         <ActiveNavlink label="My Sessions" address="/dashboard/tutorSessions" />
         <ActiveNavlink
-          label="Create Session"
+          label="Create study session"
           address="/dashboard/createSession"
         />
         <ActiveNavlink
@@ -42,15 +42,16 @@ const DashboardNav = () => {
         }`}
       >
         <ActiveNavlink
-          label="Booked Sessions"
+          label=" View booked sessions"
           address="/dashboard/bookedSessions"
         />
-        <ActiveNavlink label="Create a Note" address="/dashboard/createNote" />
-        <ActiveNavlink label="My Notes" address="/dashboard/myNotes" />
+        <ActiveNavlink label=" Create note" address="/dashboard/createNote" />
+        <ActiveNavlink label="Managepersonal notes
+" address="/dashboard/myNotes" />
 
         <div>
           <ActiveNavlink
-            label="My Session Materials"
+            label=" View all study materials"
             address="/dashboard/studentMaterials"
           />
         </div>
