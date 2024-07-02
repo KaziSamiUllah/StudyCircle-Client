@@ -93,10 +93,12 @@ const ReApply = () => {
           <span className="loading loading-ring loading-lg"></span>
         </div>
       ) : (
+        <>
         <form onSubmit={handleSubmit(onSubmit)} className="w-10/12 mx-auto mt-8">
           <h1 className="text-center text-3xl font-semibold my-5">
             Re-Submit the session for Approval
           </h1>
+          <div className="bg-red-100 p-2 my-5 rounded-lg"><h1 className="text-lg">Rejection Reason: <span className="text-red-500">{sessionData?.reason}</span> </h1></div>
           <div className="grid grid-cols-2 gap-5">
             <div>
               <div className="mb-4">
@@ -238,6 +240,7 @@ const ReApply = () => {
             className="bg-secondary hover:bg-neutral hover:text-white btn w-full"
           />
         </form>
+        </>
       )}
     </div>
   );
