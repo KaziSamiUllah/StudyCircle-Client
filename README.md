@@ -24,7 +24,8 @@ Here're some of the project's best features:
 *   Tutors can also upload materials in the form of Google drive link or image upload for the approved session by clicking the upload material button in My sessions list.
 *   An admin is the only role that can assign admin roles or any other role to users. They can see all the registered users in All Users page in their Dashboard.
 *   An admin can approve or reject sessions created by tutors. they can post a reason when rejecting and put a price on the sessions when approving.
-Server repository: https://github.com/KaziSamiUllah/A12-StudyCircle-Server
+
+<p>Server repository: https://github.com/KaziSamiUllah/A12-StudyCircle-Server</p>
 
 <h2>🛠️ Installation Steps:</h2>
 
